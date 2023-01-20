@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.example.app.dao.ReservDao">
+
+<resultMap id="joinedResult" type="com.example.app.domain.Reserv">
+	<id property="id" column="id"/>
+	<association property="plans" resultMap="plansResult"/>
+</resultMap>
+
+<resultMap id="plansResult" type="com.example.app.domain.Plan">
+	<id property="id" column="id"/>
+	<result property="eventAt" column="event_at"/>
+	<result property="planType" column="plan_type"/>
+	<result property="timeZone" column="time_zone"/>
+	<result property="courtType" column="court_type"/>
+	<result property="maximun" column="maximum"/>
+	<result property="emptyMaximum" column="empty_maximum"/>
+	<result property="price" column="price"/>
+</resultMap>
+
+	<select id="selectAll" resultType="com.example.app.domain.Reserv">
+		SELECT * FROM  reservs JOIN plans ON reservs.plan_id = plans.id
+	</select>
+</mapper>

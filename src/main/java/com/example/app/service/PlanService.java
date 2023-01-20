@@ -7,4 +7,6 @@ import com.example.app.domain.Plan;
 public interface PlanService {
 
 	List<Plan>getPlanList() throws Exception;
+	
+	Plan getPlanById(Integer id) throws Exception;
 }

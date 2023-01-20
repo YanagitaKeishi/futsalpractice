@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.app.domain.User;
+import com.example.app.domain.Reserv;
 
 @Mapper
-public interface UserDao {
+public interface ReservDao {
 
-	List<User>selectAll() throws Exception;
+	List<Reserv>selectAll() throws Exception;
 }

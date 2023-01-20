@@ -3,8 +3,9 @@ package com.example.app.domain;
 import lombok.Data;
 
 @Data
-public class Reserv {
+public class ReservForm {
 
 	private Integer id;
-	private Plan plans;
+	private User user;
+	private Plan plan;
 }

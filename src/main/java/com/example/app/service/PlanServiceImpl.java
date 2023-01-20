@@ -11,6 +11,7 @@ import com.example.app.domain.Plan;
 @Service
 public class PlanServiceImpl implements PlanService {
 	
+
 	@Autowired
 	PlanDao planDao;
 
@@ -18,5 +19,12 @@ public class PlanServiceImpl implements PlanService {
 	public List<Plan> getPlanList() throws Exception {
 		return planDao.selectAll();
 	}
+
+	@Override
+	public Plan getPlanById(Integer id) throws Exception {
+		return planDao.selectById(id);
+	}
+	
+	
 
 }

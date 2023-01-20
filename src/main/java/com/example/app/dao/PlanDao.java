@@ -10,4 +10,6 @@ import com.example.app.domain.Plan;
 public interface PlanDao {
 
 	List<Plan>selectAll() throws Exception;
+	
+	Plan selectById(Integer id) throws Exception;
 }

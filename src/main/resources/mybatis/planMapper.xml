@@ -3,7 +3,28 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.example.app.dao.PlanDao">
 
+	<resultMap id="joinedResult" type="com.example.app.domain.Plan">
+		<id property="id" column="id"/>
+		<result property="eventAt" column="event_at"/>
+		<result property="planType" column="plan_type"/>
+		<result property="timeZone" column="time_zone"/>
+		<result property="courtType" column="court_type"/>
+		<result property="maximum" column="maximum"/>
+		<result property="price" column="price"/>
+		<collection property="users" ofType="com.example.app.domain.User">
+			<result property="name" column="name"/>
+			<result property="memberId" column="member_id"/>
+			<result property="tel" column="tel"/>
+			<result property="userType" column="user_type"/>
+		</collection>
+	</resultMap>
+	
 	<select id="selectAll" resultType="com.example.app.domain.Plan">
 		SELECT * FROM  plans;
+	</select>
+	
+	<select id="selectById" parameterType="int" resultMap="joinedResult">
+		SELECT * FROM plans JOIN users ON plans.id = users.plan_id 
+		WHERE plans.id = #{id}
 	</select>
 </mapper>

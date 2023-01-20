@@ -1,6 +1,7 @@
 package com.example.app.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -15,4 +16,5 @@ public class Plan {
 	public Integer maximum;
 	public Integer emptyMaximum;
 	public Integer price;
+	private List<User> users;//予約者リスト
 }
