@@ -7,29 +7,7 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>予約詳細</h1>
-<p><a href="">新規作成</a></p>
-	<table class="table table-bordered">
-        <tr>
-          <th>開催日</th>
-          <th>カテゴリ</th>
-          <th>利用時間</th>
-          <th>コート</th>
-          <th>募集人数</th>
-          <th>空き人数</th>
-          <th>金額</th>
-        </tr>
-        <tr>
-          <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]</td>
-          <td>[[${plan.planType}]]</td>
-          <td>[[${plan.timeZone}]]</td>
-          <td>[[${plan.courtType}]]</td>
-          <td>[[${plan.maximum}]]</td>
-          <td>[[${plan.emptyMaximum}]]</td>
-          <td>[[${plan.price}]]</td>
-        </tr>
-      </table>
-
+<h1>予約者一覧</h1>
 	<table class="table table-bordered">
         <tr>
           <th>名前(チーム名)</th>
@@ -38,7 +16,7 @@
           <th>電話番号</th>
           <th>利用者区別</th>
         </tr>
-        <tr th:each="user : ${plan.users}">
+        <tr th:each="user : ${userList}">
           <td>[[${user.name}]]</td>
           <td>[[${user.memberId}]]</td>
           <td>[[${user.playerCount}]]人</td>
@@ -46,8 +24,6 @@
           <td>[[${user.userType}]]</td>
         </tr>
       </table>
-
-
       <p><a th:href="@{/admin/home}">戻る</a></p>
 </body>
 </html>

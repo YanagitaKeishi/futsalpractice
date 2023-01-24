@@ -13,11 +13,11 @@ import com.example.app.service.MemberService;
 public class MemberController {
 
 	@Autowired
-	MemberService service;
+	MemberService memberService;
 	
 	@GetMapping("/list")
 	public String list(Model model) throws Exception{
-		model.addAttribute("memberList", service.getMemeberList());
-		return "reserv/member-list";
+		model.addAttribute("memberList", memberService.getMemeberList());
+		return "admin/member-list";
 	}
 }

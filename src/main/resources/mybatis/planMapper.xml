@@ -15,6 +15,7 @@
 			<result property="name" column="name"/>
 			<result property="memberId" column="member_id"/>
 			<result property="tel" column="tel"/>
+			<result property="playerCount" column="player_count"/>
 			<result property="userType" column="user_type"/>
 		</collection>
 	</resultMap>

@@ -10,6 +10,6 @@ public class TopController {
 
 	@GetMapping
 	public String top() {
-		return "reserv/top";
+		return "user/top";
 	}
 }

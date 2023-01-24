@@ -8,33 +8,30 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.app.service.PlanService;
-import com.example.app.service.ReservService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin")//管理者ページ
 public class AdminController {
 
 	@Autowired
-	ReservService reservService;
-	
-	@Autowired
 	PlanService planService;
 	
-	@GetMapping("/home")
+	@GetMapping("/home")//管理者ホーム
 	public String home() {
 		return "admin/home";
 	}
 	
-	@GetMapping("/reserv")
+	@GetMapping("/reserv")//予約状況一覧
 	public String reservList (Model model) throws Exception{
 			model.addAttribute("reservs", planService.getPlanList());
-			return "admin/reservs-list";
+			return "admin/reserv-list";
 	}
 	
-	@GetMapping("/reserv/detail/{id}")
+	@GetMapping("/reserv/detail/{id}")//予約状況詳細
 	public String reservDetail(@PathVariable Integer id,Model model)
 					throws Exception{
 		model.addAttribute("plan",planService.getPlanById(id));
 		return "admin/reserv-detail";
 	}
+	
 }
