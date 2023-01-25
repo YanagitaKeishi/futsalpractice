@@ -10,7 +10,6 @@ import com.example.app.domain.Plan;
 
 @Service
 public class PlanServiceImpl implements PlanService {
-	
 
 	@Autowired
 	PlanDao planDao;
@@ -23,6 +22,11 @@ public class PlanServiceImpl implements PlanService {
 	@Override
 	public Plan getPlanById(Integer id) throws Exception {
 		return planDao.selectById(id);
+	}
+	
+	@Override
+	public List<Plan>getPlanType(String planType) throws Exception {
+		return planDao.selectPlanTypeId(planType);
 	}
 	
 	

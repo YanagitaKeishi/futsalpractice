@@ -8,13 +8,13 @@ import lombok.Data;
 @Data
 public class Plan {
 
-	public Integer id;
-	public Date eventAt;
-	public String planType;
-	public String timeZone;
-	public String courtType;
-	public Integer maximum;
-	public Integer emptyMaximum;
-	public Integer price;
+	private Integer id;
+	private Date eventAt;
+	private PlanType planType;
+	private String timeZone;
+	private String courtType;
+	private Integer maximum;
+	private Integer emptyMaximum;
+	private Integer price;
 	private List<User> users;//予約者リスト
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>○○フットサル</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{css/style.css}">
+</head>
+<body>
+<h2>個サルから探す</h2>
+<table class="table table-bordered">
+        <tr>
+          <th>開催日</th>
+          <th>利用時間</th>
+          <th>コート</th>
+          <th>金額</th>
+          <th>募集人数</th>
+          <th>空き人数</th>
+          <th>リンク</th>
+        </tr>
+        <tr th:each="planType : ${planTypes}">
+          <td><a href="">[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]</a></td>
+          <td>[[${plan.timeZone}]]</td>
+          <td>[[${plan.courtType}]]</td>
+          <td>[[${plan.price}]]</td>
+          <td>[[${plan.maximum}]]</td>
+          <td>[[${plan.emptyMaximum}]]</td>
+          <td></td>
+        </tr>
+      </table>
+</body>
+</html>

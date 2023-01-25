@@ -3,11 +3,8 @@ package com.example.app.domain;
 import lombok.Data;
 
 @Data
-public class User {
+public class PlanType {
 
 	private Integer id;
 	private String name;
-	private String memberId;
-	private Integer tel;
-	private String userType;
 }

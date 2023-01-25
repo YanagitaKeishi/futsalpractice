@@ -12,4 +12,6 @@ public interface PlanDao {
 	List<Plan>selectAll() throws Exception;
 	
 	Plan selectById(Integer id) throws Exception;
+	
+	List<Plan>selectPlanTypeId(String planType) throws Exception;
 }

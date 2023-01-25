@@ -11,15 +11,13 @@
 	<table class="table table-bordered">
         <tr>
           <th>名前(チーム名)</th>
-          <th>利用者ID（会員ID）</th>
-          <th>参加人数</th>
+          <th>利用者ID（会員ID</th>
           <th>電話番号</th>
           <th>利用者区別</th>
         </tr>
         <tr th:each="user : ${userList}">
           <td>[[${user.name}]]</td>
           <td>[[${user.memberId}]]</td>
-          <td>[[${user.playerCount}]]人</td>
           <td>[[${user.tel}]]</td>
           <td>[[${user.userType}]]</td>
         </tr>
