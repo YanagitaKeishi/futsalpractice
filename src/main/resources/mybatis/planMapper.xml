@@ -14,24 +14,29 @@
 		<association property="planType" column="plan_type_id"
 					javaType="com.example.app.domain.PlanType">
 			<id property="id" column="id"/>
-			<result property="name" column="name"/>
+			<result property="name" column="plan_type_name"/>
 		</association>
 		<collection property="users" ofType="com.example.app.domain.User">
-			<result property="name" column="name"/>
+			<result property="name" column="user_name"/>
 			<result property="memberId" column="member_id"/>
 			<result property="tel" column="tel"/>
-			<result property="playerCount" column="player_count"/>
 			<result property="userType" column="user_type"/>
 		</collection>
 	</resultMap>
 	
 	<select id="selectAll" resultMap="joinedResult">
-		SELECT * FROM  plans
+		SELECT *, plan_types.name AS plan_type_name FROM  plans
 		JOIN plan_types ON plans.plan_type_id = plan_types.id
 	</select>
 	
 	<select id="selectById" parameterType="int" resultMap="joinedResult">
-		SELECT * FROM plans JOIN users ON plans.id = users.plan_id 
+		SELECT plans.id, plans.event_at, plans.time_zone,
+		 plans.court_type, plans.maximum, plans.empty_maximum,
+		 plans.price, plan_types.name AS plan_type_name,
+		 users.name AS user_name, users.member_id, users.tel,
+		 users.user_type FROM plans 
+		JOIN plan_types ON plans.plan_type_id = plan_types.id
+		JOIN users ON plans.id = users.plan_id 
 		WHERE plans.id = #{id}
 	</select>
 </mapper>
