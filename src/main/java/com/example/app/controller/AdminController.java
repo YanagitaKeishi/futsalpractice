@@ -21,6 +21,16 @@ public class AdminController {
 		return "admin/home";
 	}
 	
+	@GetMapping("/calendar")
+	public String calendar() {
+		return "parts/calendar";
+	}
+	
+	@GetMapping("/time")
+	public String time() {
+		return "parts/time-list";
+	}
+	
 	@GetMapping("/reserv")//予約状況一覧
 	public String reservList (Model model) throws Exception{
 			model.addAttribute("reservs", planService.getPlanList());
