@@ -40,7 +40,7 @@ public class AdminController {
 	@GetMapping("/reserv/detail/{id}")//予約状況詳細
 	public String reservDetail(@PathVariable Integer id,Model model)
 					throws Exception{
-		model.addAttribute("plan",planService.getPlanById(id));
+		model.addAttribute("plan", planService.getPlanById(id));
 		return "admin/reserv-detail";
 	}
 	

@@ -1,5 +1,6 @@
 package com.example.app.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ public class PlanServiceImpl implements PlanService {
 	public List<Plan>getPlanType(String planType) throws Exception {
 		return planDao.selectPlanTypeId(planType);
 	}
-	
-	
 
+	@Override
+	public List<Plan> getPlanDate(Date eventAt,Integer id) throws Exception {
+		return planDao.selectPlanDate(eventAt,id);
+	}
 }

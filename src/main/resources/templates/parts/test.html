@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>時間別</title>
 </head>
-<p>[[${eventAt}]]</p>
 <body>
 	<table border="1" cellpadding="5" cellspacing="0">
 	<tr>
@@ -24,14 +23,38 @@
 		<th>21:00</th>
 		<th>22:00</th>
 	</tr>
-	<tr >
-		<th rowspan="2">[[${#dates.format(eventDay, "M月d日")}]]</th>
+	<tr>
+		<th rowspan="2">1/11</th>
 		<th>コートA</th>
-		<td th:each="select : ${selectCourtA}"><a th:href="@{/admin/reserv/detail/{id}(id=${select.planType.id})}">[[${select.planType.name}]]<br>[[${select.timeZone}]]</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
 		<th>コートB</th>
-		<td th:each="select : ${selectCourtB}"><a th:href="@{/admin/reserv/detail/{id}(id=${select.planType.id})}">[[${select.planType.name}]]<br>[[${select.timeZone}]]</a></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
 	</tr>
 	</table>
 	<p><a th:href="@{/admin/home}">戻る</a></p>

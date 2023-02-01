@@ -21,28 +21,29 @@
         <tr>
           <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]/[[${plan.timeZone}]]</td>
           <td>[[${plan.planType.name}]]</td>
-          <td>[[${plan.courtType}]]</td>
+          <td>[[${plan.courtType.name}]]</td>
           <td>[[${plan.maximum}]]</td>
           <td>[[${plan.emptyMaximum}]]</td>
           <td>[[${plan.price}]]</td>
         </tr>
       </table>
-	<table class="table table-bordered">
-        <tr>
-          <th>名前(チーム名)</th>
-          <th>利用者ID（会員ID）</th>
-          <th>電話番号</th>
-          <th>利用者区別</th>
-        </tr>
-        <tr th:each="user : ${plan.users}">
-          <td>[[${user.name}]]</td>
-          <td>[[${user.memberId}]]</td>
-          <td>[[${user.tel}]]</td>
-          <td>[[${user.userType}]]</td>
-        </tr>
-      </table>
-
-
+      <th:block th:unless="${plan.users.empty} ">
+		 <table class="table table-bordered">
+	        <tr>
+	          <th>名前(チーム名)</th>
+	          <th>会員ID</th>
+	          <th>電話番号</th>
+	          <th>利用者分類</th>
+	        </tr>
+	        <tr th:each="user : ${plan.users}">
+	          <td>[[${user.name}]]</td>
+	          <td>[[${user.memberId}]]</td>
+	          <td>[[${user.tel}]]</td>
+	          <td>[[${user.userType}]]</td>
+	        </tr>
+	      </table>
+	      </th:block>
+      <h1 th:if="${plan.users.empty}">まだ予約はありません</h1>
       <p><a th:href="@{/admin/home}">戻る</a></p>
 </body>
 </html>

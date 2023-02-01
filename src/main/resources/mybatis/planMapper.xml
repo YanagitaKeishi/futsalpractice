@@ -7,7 +7,6 @@
 		<id property="id" column="id"/>
 		<result property="eventAt" column="event_at"/>
 		<result property="timeZone" column="time_zone"/>
-		<result property="courtType" column="court_type"/>
 		<result property="maximum" column="maximum"/>
 		<result property="emptyMaximum" column="empty_maximum"/>
 		<result property="price" column="price"/>
@@ -15,6 +14,12 @@
 					javaType="com.example.app.domain.PlanType">
 			<id property="id" column="id"/>
 			<result property="name" column="plan_type_name"/>
+		</association>
+		<association property="courtType" column="court_type_id"
+					javaType="com.example.app.domain.CourtType">
+			<id property="id" column="id"/>
+			<result property="name" column="court_type_name"/>
+			<result property="note" column="note"/>
 		</association>
 		<collection property="users" ofType="com.example.app.domain.User">
 			<result property="name" column="user_name"/>
@@ -25,18 +30,35 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap="joinedResult">
-		SELECT *, plan_types.name AS plan_type_name FROM  plans
+		SELECT *, plan_types.name AS plan_type_name, courts.name AS court_type_name
+		FROM  plans
 		JOIN plan_types ON plans.plan_type_id = plan_types.id
+		JOIN courts ON plans.court_type_id = courts.id
 	</select>
 	
 	<select id="selectById" parameterType="int" resultMap="joinedResult">
 		SELECT plans.id, plans.event_at, plans.time_zone,
-		 plans.court_type, plans.maximum, plans.empty_maximum,
+		 plans.maximum, plans.empty_maximum,
 		 plans.price, plan_types.name AS plan_type_name,
+		 courts.name AS court_type_name,
 		 users.name AS user_name, users.member_id, users.tel,
 		 users.user_type FROM plans 
 		JOIN plan_types ON plans.plan_type_id = plan_types.id
-		JOIN users ON plans.id = users.plan_id 
+		JOIN courts ON plans.court_type_id = courts.id
+		LEFT JOIN users ON plans.id = users.plan_id 
 		WHERE plans.id = #{id}
+	</select>
+	
+	<select id="selectPlanDate" resultMap="joinedResult">
+		SELECT *, plan_types.name AS plan_type_name,
+		courts.name AS court_type_name
+		FROM plans 
+		JOIN plan_types ON plans.plan_type_id = plan_types.id
+		JOIN courts ON plans.court_type_id = courts.id
+		WHERE plans.event_at = #{eventAt} AND plans.court_type_id = #{id}
+	</select>
+	
+	<select id="selectCourtId" resultMap="joinedResult">
+		SELECT DISTINCT court_type_id  FROM plans;
 	</select>
 </mapper>

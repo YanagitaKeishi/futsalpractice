@@ -12,7 +12,7 @@ public class Plan {
 	private Date eventAt;
 	private PlanType planType;
 	private String timeZone;
-	private String courtType;
+	private CourtType courtType;
 	private Integer maximum;
 	private Integer emptyMaximum;
 	private Integer price;

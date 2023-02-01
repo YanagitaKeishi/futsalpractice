@@ -1,8 +1,10 @@
 package com.example.app.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.app.domain.Plan;
 
@@ -14,4 +16,8 @@ public interface PlanDao {
 	Plan selectById(Integer id) throws Exception;
 	
 	List<Plan>selectPlanTypeId(String planType) throws Exception;
+	
+	List<Plan> selectPlanDate(@Param("eventAt") Date eventAt, 
+							@Param("id") Integer id) throws Exception;
+	
 }
