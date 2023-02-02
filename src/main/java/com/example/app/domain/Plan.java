@@ -11,7 +11,8 @@ public class Plan {
 	private Integer id;
 	private Date eventAt;
 	private PlanType planType;
-	private String timeZone;
+	private TimeZone startTime;
+	private TimeZone endTime;
 	private CourtType courtType;
 	private Integer maximum;
 	private Integer emptyMaximum;

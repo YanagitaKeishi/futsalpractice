@@ -17,7 +17,7 @@ public class PlanController {
 	PlanService service;
 	
 	@GetMapping("/list")
-	public String list(Model model) throws Exception {
+	public String list(Model model) throws Exception{
 		model.addAttribute("planList", service.getPlanList());
 		return "admin/plan-list";
 	}

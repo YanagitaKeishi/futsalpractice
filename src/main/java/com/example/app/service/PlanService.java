@@ -13,5 +13,6 @@ public interface PlanService {
 	
 	List<Plan>getPlanType(String planType) throws Exception;
 	
-	List<Plan> getPlanDate(Date eventAt, Integer id) throws Exception;
+	List<Plan> getPlanDate(Date eventAt, Integer courtTypeId) throws Exception;
+	
 }

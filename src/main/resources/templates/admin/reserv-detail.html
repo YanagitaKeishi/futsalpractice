@@ -19,7 +19,8 @@
           <th>金額</th>
         </tr>
         <tr>
-          <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]/[[${plan.timeZone}]]</td>
+          <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]/
+          [[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
           <td>[[${plan.planType.name}]]</td>
           <td>[[${plan.courtType.name}]]</td>
           <td>[[${plan.maximum}]]</td>

@@ -18,6 +18,6 @@ public interface PlanDao {
 	List<Plan>selectPlanTypeId(String planType) throws Exception;
 	
 	List<Plan> selectPlanDate(@Param("eventAt") Date eventAt, 
-							@Param("id") Integer id) throws Exception;
+							@Param("courtTypeId") Integer courtTypeId) throws Exception;
 	
 }

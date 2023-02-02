@@ -31,7 +31,7 @@ public class PlanServiceImpl implements PlanService {
 	}
 
 	@Override
-	public List<Plan> getPlanDate(Date eventAt,Integer id) throws Exception {
-		return planDao.selectPlanDate(eventAt,id);
+	public List<Plan> getPlanDate(Date eventAt,Integer courtTypeid) throws Exception {
+		return planDao.selectPlanDate(eventAt,courtTypeid);
 	}
 }

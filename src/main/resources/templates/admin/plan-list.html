@@ -17,17 +17,21 @@
           <th>コート</th>
           <th>募集状況</th>
           <th>金額</th>
-          <th>リンク</th>
+          <th>startId</th>
+          <th>endId</th>
+          <th>courtId</th>
         </tr>
         <tr th:each="plan : ${planList}">
           <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]
-          	<br>[[${plan.timeZone}]]</td>
+          	<br>[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
           <td>[[${plan.planType.name}]]</td>
           <td>[[${plan.courtType.name}]]</td>
           <td>募集：[[${plan.maximum}]]
           	<br>残り：[[${plan.emptyMaximum}]]</td>
           <td>[[${plan.price}]]</td>
-          <td>編集</td>
+          <td>[[${plan.startTime.id}]]</td>
+          <td>[[${plan.endTime.id}]]</td>
+          <td>[[${plan.courtType.id}]]</td>
         </tr>
       </table>
       <p><a th:href="@{/admin/home}">戻る</a></p>

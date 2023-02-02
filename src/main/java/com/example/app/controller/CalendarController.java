@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.app.domain.MyCalendar;
 import com.example.app.domain.MyCalendarLogic;
 import com.example.app.service.PlanService;
+import com.example.app.service.TypeService;
 
 @Controller
 @RequestMapping("/calendar")
@@ -23,6 +24,8 @@ public class CalendarController {
 	
 	@Autowired
 	PlanService planService;
+	@Autowired
+	TypeService typeService;
 	
 	@InitBinder
 	public void initBinderForm(WebDataBinder binder) {
@@ -64,6 +67,8 @@ public class CalendarController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
 		model.addAttribute("eventDay", eventAt);
+		model.addAttribute("timeZone", typeService.getTimeZone());
+		model.addAttribute("courtTypes", typeService.getCourtType());
 		Integer courtId1 = 1;
 		Integer courtId2 = 2;
 		model.addAttribute("selectCourtA", planService.getPlanDate(eventAt,courtId1));

@@ -9,6 +9,5 @@ public class TimeSchedule {
 
 	private Date date;
 	private String court;
-	private String [] schedule;
-	private Integer [] planId;
+	private Plan [] schedules;
 }
