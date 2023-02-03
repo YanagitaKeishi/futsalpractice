@@ -30,8 +30,8 @@ public class TypeServiceImpl implements TypeService {
 	}
 
 	@Override
-	public Integer getCourtId() throws Exception {
-		return courtTypeDao.selelctIdAll();
+	public List<Integer> getCourtId() throws Exception {
+		return courtTypeDao.selectIdAll();
 	}
 
 }

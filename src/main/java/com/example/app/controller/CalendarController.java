@@ -1,7 +1,9 @@
 package com.example.app.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.app.domain.MyCalendar;
 import com.example.app.domain.MyCalendarLogic;
+import com.example.app.domain.Plan;
 import com.example.app.service.PlanService;
 import com.example.app.service.TypeService;
 
@@ -66,6 +69,29 @@ public class CalendarController {
 		String select = year +"-"+ month +"-"+ day;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
+		List<Integer>idList = typeService.getCourtId();
+		//整数のリストを整数の配列に変換
+		int[] idArray = idList.stream().mapToInt(i->i).toArray();
+		//planのリスト格納する親リストを作成
+		List<List<Plan>>schedules = new ArrayList<>();
+		//コートId別でコートリストを格納
+		for(int id : idArray) {
+			List<Plan> planList = planService.getPlanDate(eventAt, id);
+			schedules.add(planList);
+		}
+		System.out.println(schedules);
+		
+		int count = schedules.size();
+		System.out.println(count);
+		
+//		List<Map<String,Object>> scheduleList = new ArrayList<>();
+		
+		
+		model.addAttribute("schedules", schedules);
+		//先生からの途中
+		//タイムリーフ
+		
+		
 		model.addAttribute("eventDay", eventAt);
 		model.addAttribute("timeZone", typeService.getTimeZone());
 		model.addAttribute("courtTypes", typeService.getCourtType());

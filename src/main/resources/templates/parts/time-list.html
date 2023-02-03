@@ -27,5 +27,24 @@
 	</tr>
 	</table>
 	<p><a th:href="@{/admin/home}">戻る</a></p>
+
+	<table border="1" cellpadding="5" cellspacing="0">
+	<tr>
+		<th>日付</th>
+		<th>コート</th>
+		<th th:each="time : ${timeZone}">[[${#dates.format(time.time, "HH:mm")}]]</th>
+	</tr>
+	<tr th:each="schedule, status : ${schedules}">
+		<th rowspan="$[[${status.size}]]">[[${#dates.format(eventDay, "M月d日")}]]</th>
+		<th>[[${courtTypes[status.index].name}]]</th>
+		<td th:each="time : ${timeZone}">
+			<p th:each="plan : ${schedule}" th:if="${plan.startTime.id == time.id}">[[${plan.planType.name}]]<br>
+			[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</p>
+		</td>
+	</tr>
+	</table>
+
+
+
 </body>
 </html>

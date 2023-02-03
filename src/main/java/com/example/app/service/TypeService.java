@@ -11,5 +11,5 @@ public interface TypeService {
 	
 	List<TimeZone>getTimeZone()throws Exception;
 	
-	Integer getCourtId() throws Exception;
+	List<Integer> getCourtId() throws Exception;
 }

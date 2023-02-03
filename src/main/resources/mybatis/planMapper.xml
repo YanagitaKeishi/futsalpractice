@@ -69,8 +69,8 @@
 	<select id="selectPlanDate" resultMap="joinedResult">
 		SELECT *, plan_types.name AS plan_type_name,
 		join_start_time.time AS start, join_end_time.time AS end,
-		join_start_time.id, join_end_time.id,
-		courts.name AS court_type_name
+		join_start_time.id AS join_start_time_id, join_end_time.id AS join_end_time_id,
+		courts.name AS court_type_name, courts.id AS court_id
 		FROM plans 
 		JOIN plan_types ON plans.plan_type_id = plan_types.id
 		JOIN courts ON plans.court_type_id = courts.id

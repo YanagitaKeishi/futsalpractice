@@ -11,5 +11,6 @@ public interface CourtTypeDao {
 
 	List<CourtType>selectAll() throws Exception;
 	
-	Integer selelctIdAll()throws Exception;
+	List<Integer> selectIdAll()throws Exception;
+	
 }

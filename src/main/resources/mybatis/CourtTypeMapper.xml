@@ -6,4 +6,8 @@
 	<select id="selectAll" resultType="com.example.app.domain.CourtType">
 		SELECT * FROM courts
 	</select>
+	
+	<select id="selectIdAll" resultType="Integer">
+		SELECT courts.id FROM courts
+	</select>
 </mapper>

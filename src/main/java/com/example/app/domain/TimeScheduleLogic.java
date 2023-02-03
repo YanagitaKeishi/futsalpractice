@@ -1,6 +1,7 @@
 package com.example.app.domain;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,34 +14,32 @@ public class TimeScheduleLogic {
 
 	@Autowired
 	PlanService planService;
-	
+
 	@Autowired
 	TypeService typeService;
+
 	
-	private Date eventAt;
-	
+
 	public TimeSchedule showSchedule(String select) throws Exception {
 		//タイムスケジュールのインスタンス生成
 		TimeSchedule ts = new TimeSchedule();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
-		this.eventAt = eventAt;
+		ts.setDate(eventAt);
 		
-		List<Plan> schedules = planService.getPlanDate(eventAt, 1);
 		
-		Integer courtId = 0 ;
-		while(courtId == -1) {
-			courtId = typeService.getCourtId();
-			//courtIdの取得の続き、複数の値はList？
+		
+		List<Integer>idList = typeService.getCourtId();
+		//整数のリストを整数の配列に変換
+		int[] idArray = idList.stream().mapToInt(i->i).toArray();
+		
+		List<List<Plan>>schedules = new ArrayList<>();
+		for(int id : idArray) {
+			List<Plan> planList = planService.getPlanDate(eventAt, id);
+			schedules.add(planList);
 		}
-		
-		
-		
-		
-		
-		
-		//SELECT DISTINCT court_type_id  FROM plans..DISTINCTで重複回避
-		
+		System.out.println(schedules);
+			
 
 		
 		return ts;
