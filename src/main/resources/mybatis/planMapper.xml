@@ -6,6 +6,7 @@
 	<resultMap id="joinedResult" type="com.example.app.domain.Plan">
 		<id property="id" column="id"/>
 		<result property="eventAt" column="event_at"/>
+		<result property="title" column="title"/>
 		<result property="maximum" column="maximum"/>
 		<result property="emptyMaximum" column="empty_maximum"/>
 		<result property="price" column="price"/>
@@ -48,12 +49,12 @@
 		JOIN courts ON plans.court_type_id = courts.id
 		JOIN  time_zones AS join_start_time ON plans.start_time_id = join_start_time.id
 		JOIN  time_zones AS join_end_time ON plans.end_time_id = join_end_time.id 
+		WHERE plans.status = 'active'
+		ORDER BY event_at 
 	</select>
 	
 	<select id="selectById" parameterType="int" resultMap="joinedResult">
-		SELECT plans.id, plans.event_at,
-		 plans.maximum, plans.empty_maximum,
-		 plans.price, plan_types.name AS plan_type_name,
+		SELECT *, plan_types.name AS plan_type_name,
 		 courts.name AS court_type_name,
 		 join_start_time.time AS start, join_end_time.time AS end,
 		 users.name AS user_name, users.member_id, users.tel,
@@ -76,6 +77,27 @@
 		JOIN courts ON plans.court_type_id = courts.id
 		JOIN  time_zones AS join_start_time ON plans.start_time_id = join_start_time.id
 		JOIN  time_zones AS join_end_time ON plans.end_time_id = join_end_time.id 
-		WHERE plans.event_at = #{eventAt} AND plans.court_type_id = #{courtTypeId}
+		WHERE plans.event_at = #{eventAt} AND plans.court_type_id = #{courtTypeId} AND plans.status = 'active'
 	</select>
+	
+	<insert id="insert" parameterType="com.example.app.domain.Plan">
+		INSERT INTO plans (event_at, title, plan_type_id, start_time_id, end_time_id,
+		court_type_id, maximum, empty_maximum, price)
+		VALUES (#{eventAt}, #{title}, #{planType.id}, #{startTime.id},
+		#{endTime.id}, #{courtType.id}, #{maximum}, #{emptyMaximum}, #{price})
+	</insert>
+	
+	<update id ="delete" parameterType="com.example.app.domain.Plan">
+		UPDATE plans 
+		SET status = 'delete'
+		WHERE id = #{id}
+	</update>
+	
+	<update id="update" parameterType="com.example.app.domain.Plan">
+		UPDATE plans
+		SET event_at = #{eventAt}, title = #{title}, plan_type_id = #{planType.id},
+			start_time_id = #{startTime.id}, end_time_id = #{endTime.id}, court_type_id = #{courtType.id},
+			maximum = #{maximum}, empty_maximum = #{emptyMaximum}, price = #{price}
+		WHERE id = #{id}
+	</update>
 </mapper>

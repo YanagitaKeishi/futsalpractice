@@ -10,10 +10,11 @@ public class Plan {
 
 	private Integer id;
 	private Date eventAt;
+	private String title;
 	private PlanType planType;
 	private TimeZone startTime;
 	private TimeZone endTime;
-	private CourtType courtType;
+	private CourtType courtType;//コートの種類
 	private Integer maximum;
 	private Integer emptyMaximum;
 	private Integer price;

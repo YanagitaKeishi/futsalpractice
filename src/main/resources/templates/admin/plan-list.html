@@ -9,29 +9,31 @@
 <body>
 <h1>スケジュール一覧</h1>
 <p><a href="">個人参加</a>/<a href="">大会参加</a>/<a href="">レンタルコート</a></p>
-<p><a href="">新規作成</a></p>
+<p><a th:href="@{/plan/add}">新規作成</a></p>
+<h2 th:if="${message != null}" class="alert alert-info">[[${message}]]</h2>
 	<table class="table table-bordered">
         <tr>
           <th>開催日時</th>
+          <th>タイトル(チーム名)</th>
           <th>カテゴリ</th>
           <th>コート</th>
           <th>募集状況</th>
           <th>金額</th>
-          <th>startId</th>
-          <th>endId</th>
-          <th>courtId</th>
+          <th>編集/削除</th>
         </tr>
         <tr th:each="plan : ${planList}">
           <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]
           	<br>[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
+          <td>[[${plan.title}]]</td>
           <td>[[${plan.planType.name}]]</td>
           <td>[[${plan.courtType.name}]]</td>
           <td>募集：[[${plan.maximum}]]
           	<br>残り：[[${plan.emptyMaximum}]]</td>
           <td>[[${plan.price}]]</td>
-          <td>[[${plan.startTime.id}]]</td>
-          <td>[[${plan.endTime.id}]]</td>
-          <td>[[${plan.courtType.id}]]</td>
+          <td>
+          		<a th:href="@{/plan/edit(id=${plan.id})}"><input type="submit" value="編集"></a>
+          		<a th:href="@{/plan/delete(id=${plan.id})}"><input type="submit" value="削除"></a>
+          </td>
         </tr>
       </table>
       <p><a th:href="@{/admin/home}">戻る</a></p>

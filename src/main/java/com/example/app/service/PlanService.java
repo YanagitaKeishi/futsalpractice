@@ -14,10 +14,18 @@ public interface PlanService {
 	
 	Plan getPlanById(Integer id) throws Exception;
 	
-	List<Plan>getPlanType(String planType) throws Exception;
+	List<Plan>getByPlanType(String planType) throws Exception;
 	
 	List<Plan> getPlanDate(Date eventAt, Integer courtTypeId) throws Exception;
 	
 	List<Map<String,Plan>> getMap(@Param("eventAt") Date eventAt, 
 			@Param("courtTypeId") Integer courtTypeId) throws Exception;
+	
+	void addPlan(Plan plan) throws Exception;
+	
+	void editPlan(Plan plan) throws Exception;
+	
+	void deletePlan(Integer id) throws Exception;
+	
+	String message(String status) throws Exception;
 }

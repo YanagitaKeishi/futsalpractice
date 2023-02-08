@@ -12,22 +12,22 @@
 		<th>コート</th>
 		<th th:each="time : ${timeZone}">[[${#dates.format(time.time, "HH:mm")}]]</th>
 	</tr>
-	<tr>
-		<th rowspan="2">[[${#dates.format(eventDay, "M月d日")}]]</th>
-		<th>[[${courtTypes[0].name}]]</th>
-		<td th:each="select : ${selectCourtA}"><a th:href="@{/admin/reserv/detail/{id}(id=${select.planType.id})}">[[${select.planType.name}]]<br>
-			[[${#dates.format(select.startTime.time, 'HH:mm')}]]~[[${#dates.format(select.endTime.time, 'HH:mm')}]]</a>
-		</td>
-	</tr>
-	<tr>
-		<th>[[${courtTypes[1].name}]]</th>
-		<td th:each="select : ${selectCourtB}"><a th:href="@{/admin/reserv/detail/{id}(id=${select.planType.id})}">[[${select.planType.name}]]<br>
-			[[${#dates.format(select.startTime.time, 'HH:mm')}]]~[[${#dates.format(select.endTime.time, 'HH:mm')}]]</a>
+	<tr th:each="court : ${courtTypes}">
+		<th th:if="${courtStat.first}" th:rowspan="${courtStat.size}">[[${#dates.format(eventDay, "M月d日")}]]</th>
+		<th>[[${court.name}]]</th>
+		<td th:each="time : ${timeZone}" colspan="" th:with="plans = ${planMap.get(court.name)}">
+			<th:block th:each="plan : ${plans}">
+				<p th:if="${plan.startTime.id == time.id || plan.endTime.id -1 == time.id}">
+					<a th:href="@{@{/admin/reserv/detail/{id}(id=${plan.planType.id})}}">[[${plan.title}]]<br>
+					[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</a>
+				</p>
+			</th:block>
 		</td>
 	</tr>
 	</table>
-	<p><a th:href="@{/admin/home}">戻る</a></p>
-
+	
+	<p><a th:href="@{/calendar}">戻る</a></p>
+	
 	<table border="1" cellpadding="5" cellspacing="0">
 	<tr>
 		<th>日付</th>
@@ -35,16 +35,15 @@
 		<th th:each="time : ${timeZone}">[[${#dates.format(time.time, "HH:mm")}]]</th>
 	</tr>
 	<tr th:each="schedule, status : ${schedules}">
-		<th rowspan="$[[${status.size}]]">[[${#dates.format(eventDay, "M月d日")}]]</th>
+		<th rowspan="${status.size}">[[${#dates.format(eventDay, "M月d日")}]]</th>
 		<th>[[${courtTypes[status.index].name}]]</th>
 		<td th:each="time : ${timeZone}">
-			<p th:each="plan : ${schedule}" th:if="${plan.startTime.id == time.id}">[[${plan.planType.name}]]<br>
+			<p th:each="plan : ${schedule}" th:if="${plan.startTime.id == time.id || plan.endTime.id -1 == time.id}">[[${plan.planType.name}]]<br>
 			[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</p>
 		</td>
 	</tr>
 	</table>
-
-
-
+	<p><a th:href="@{/admin/home}">戻る</a></p>
+	
 </body>
 </html>

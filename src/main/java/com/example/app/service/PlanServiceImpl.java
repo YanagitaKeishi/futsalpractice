@@ -1,6 +1,5 @@
 package com.example.app.service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,7 @@ public class PlanServiceImpl implements PlanService {
 	}
 	
 	@Override
-	public List<Plan>getPlanType(String planType) throws Exception {
+	public List<Plan>getByPlanType(String planType) throws Exception {
 		return planDao.selectPlanTypeId(planType);
 	}
 
@@ -39,18 +38,43 @@ public class PlanServiceImpl implements PlanService {
 
 	@Override
 	public List<Map<String, Plan>> getMap(Date eventAt, Integer courtTypeId) throws Exception {
-		//日付とコートで検索したプランリストを取得
-		List<Plan> PlanList = planDao.selectPlanDate(eventAt, courtTypeId);
-		//
-		List<Map<String,Plan>>CourtTypePlanList = new ArrayList<>();
-//		for(int i = 0;i<PlanList.size();i++) {
-//			Plan p  = PlanList.get(i);{
-//			Map<String,Object> plan = new HashMap<>();
-//			plan.put("id", p.getId());
-//			plan.put("eventAt", p.getEventAt());
-//			plan.put("planType", p.getPlanType());
-//			
-//		}
-		return CourtTypePlanList;
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public void addPlan(Plan plan) throws Exception {
+		planDao.insert(plan);
+	}
+
+	@Override
+	public void editPlan(Plan plan) throws Exception {
+		planDao.update(plan);
+	}
+
+	@Override
+	public void deletePlan(Integer id) throws Exception {
+		planDao.delete(id);
+	}
+
+	@Override
+	public String message(String status) throws Exception {
+		String message = null;
+		
+		if(status == null) {
+			return message;
+		}
+		switch(status) {
+		case "add":
+			message = "イベントを作成しました。";
+			break;
+		case "edit":
+			message = "イベント情報を更新しました。";
+			break;
+		case "delete":
+			message = "イベント情報を削除しました。";
+			break;
+		}
+		return message;
 	}
 }

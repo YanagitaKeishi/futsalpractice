@@ -12,19 +12,21 @@
 	<table class="table table-bordered">
         <tr>
           <th>開催日時</th>
+          <th>タイトル</th>
           <th>カテゴリ</th>
           <th>コート</th>
-          <th>募集人数</th>
-          <th>空き人数</th>
+          <th>募集枠</th>
+          <th>空き枠</th>
           <th>金額</th>
         </tr>
         <tr>
           <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]/
           [[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
+          <td>[[${plan.title}]]</td>
           <td>[[${plan.planType.name}]]</td>
           <td>[[${plan.courtType.name}]]</td>
           <td>[[${plan.maximum}]]</td>
-          <td>[[${plan.emptyMaximum}]]</td>
+          <td>[[${plan.emptyMaximum-plan.users.size}]]</td>
           <td>[[${plan.price}]]</td>
         </tr>
       </table>

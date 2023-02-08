@@ -3,6 +3,7 @@ package com.example.app.service;
 import java.util.List;
 
 import com.example.app.domain.CourtType;
+import com.example.app.domain.PlanType;
 import com.example.app.domain.TimeZone;
 
 public interface TypeService {
@@ -12,4 +13,6 @@ public interface TypeService {
 	List<TimeZone>getTimeZone()throws Exception;
 	
 	List<Integer> getCourtId() throws Exception;
+	
+	List<PlanType> getPlanType() throws Exception;
 }

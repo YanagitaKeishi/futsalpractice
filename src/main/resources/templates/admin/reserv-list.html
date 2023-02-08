@@ -11,11 +11,12 @@
 	<table class="table table-bordered">
         <tr>
           <th>開催日</th>
+          <th>タイトル</th>
           <th>カテゴリ</th>
-          <th></th>
         </tr>
         <tr th:each="reserv : ${reservs}">
           <td>[[${#dates.format(reserv.eventAt, 'yyyy年MM月dd日')}]]</td>
+          <td>[[${reserv.title}]]</td>
           <td>[[${reserv.planType.name}]]</td>
           <td><a th:href="@{/admin/reserv/detail/{id}(id=${reserv.planType.id})}">詳細</a></td>
         </tr>

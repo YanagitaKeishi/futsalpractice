@@ -20,4 +20,12 @@ public interface PlanDao {
 	List<Plan> selectPlanDate(@Param("eventAt") Date eventAt, 
 							@Param("courtTypeId") Integer courtTypeId) throws Exception;
 	
+	void insert(Plan plan) throws Exception;
+	
+	void update(Plan plan) throws Exception;
+	
+	void delete(Integer id) throws Exception;
+	
+	
+	
 }

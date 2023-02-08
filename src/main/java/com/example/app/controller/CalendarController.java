@@ -3,7 +3,9 @@ package com.example.app.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -70,7 +72,7 @@ public class CalendarController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
 		List<Integer>idList = typeService.getCourtId();
-		//整数のリストを整数の配列に変換
+		//courtId(整数)のリストを整数の配列に変換
 		int[] idArray = idList.stream().mapToInt(i->i).toArray();
 		//planのリスト格納する親リストを作成
 		List<List<Plan>>schedules = new ArrayList<>();
@@ -81,16 +83,31 @@ public class CalendarController {
 		}
 		System.out.println(schedules);
 		
+		//schedulesの要素数（リスト内のリスト数）
 		int count = schedules.size();
-		System.out.println(count);
 		
 //		List<Map<String,Object>> scheduleList = new ArrayList<>();
+		Map<String,List<Plan>> planMap = new HashMap<>();
+		
+		for(int i = 0; i<count; i++) {
+			if(!schedules.get(i).isEmpty()){
+				String courtName = schedules.get(i).get(0).getCourtType().getName();
+				List<Plan> lp = schedules.get(i);
+				planMap.put(courtName, lp);
+			}else {
+				continue;
+			}
+		}
+		//ロジック変更？
+		//2/7日
+		System.out.println(planMap);
 		
 		
 		model.addAttribute("schedules", schedules);
 		//先生からの途中
 		//タイムリーフ
 		
+		model.addAttribute("planMap", planMap);
 		
 		model.addAttribute("eventDay", eventAt);
 		model.addAttribute("timeZone", typeService.getTimeZone());
