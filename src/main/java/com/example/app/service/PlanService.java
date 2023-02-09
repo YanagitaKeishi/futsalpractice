@@ -14,7 +14,7 @@ public interface PlanService {
 	
 	Plan getPlanById(Integer id) throws Exception;
 	
-	List<Plan>getByPlanType(String planType) throws Exception;
+	List<Plan>getByPlanType(Integer id) throws Exception;
 	
 	List<Plan> getPlanDate(Date eventAt, Integer courtTypeId) throws Exception;
 	

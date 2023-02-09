@@ -15,7 +15,7 @@ public interface PlanDao {
 	
 	Plan selectById(Integer id) throws Exception;
 	
-	List<Plan>selectPlanTypeId(String planType) throws Exception;
+	List<Plan>selectPlanTypeId(Integer id) throws Exception;
 	
 	List<Plan> selectPlanDate(@Param("eventAt") Date eventAt, 
 							@Param("courtTypeId") Integer courtTypeId) throws Exception;

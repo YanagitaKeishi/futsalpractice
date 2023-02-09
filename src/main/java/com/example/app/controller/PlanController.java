@@ -11,7 +11,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,12 +45,12 @@ public class PlanController {
 		return "admin/plan-list";
 	}
 	
-	@GetMapping("/{planId}")
-	public String type(@PathVariable String planType,
-					Model model) throws Exception{
-		model.addAttribute("planTypes", service.getByPlanType(planType));
-		return "user/plan-type";
-	}
+//	@GetMapping("/{planId}")
+//	public String type(@PathVariable String planType,
+//					Model model) throws Exception{
+//		model.addAttribute("planTypes", service.getByPlanType(planType));
+//		return "user/plan-type";
+//	}
 	
 	@GetMapping("/add")
 	public String getAdd(Model model) throws Exception {
@@ -78,6 +77,8 @@ public class PlanController {
 	public String getEdit(@RequestParam Integer id
 						,Model model) throws Exception{
 		model.addAttribute("plan", service.getPlanById(id));
+		Plan plan = service.getPlanById(id);
+		System.out.println(plan);
 		model.addAttribute("planTypes", typeService.getPlanType());
 		model.addAttribute("courtTypes", typeService.getCourtType());
 		model.addAttribute("timeZones", typeService.getTimeZone());

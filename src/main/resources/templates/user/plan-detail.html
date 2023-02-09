@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>スケジュール</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1>予約詳細</h1>
+<p><a href="">新規作成</a></p>
+	<table class="table table-bordered">
+        <tr>
+          <th>開催日時</th>
+          <td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]/
+          [[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
+         </tr>
+         <tr>
+          <th>タイトル</th>
+          <td>[[${plan.title}]]</td>
+          </tr>
+          <tr>
+          <th>カテゴリ</th>
+          <td>[[${plan.planType.name}]]</td>
+          </tr>
+          <tr>
+          <th>コート</th>
+           <td>[[${plan.courtType.name}]]</td>
+          </tr>
+          <tr>
+           <th>募集枠</th>
+          <td>[[${plan.maximum}]](残り[[${plan.emptyMaximum-plan.users.size}]]）</td>
+          </tr>
+          <tr>
+          <th>金額</th>
+          <td>[[${plan.price}]]円</td>
+        </tr>
+      </table>
+      <p><a th:href="@{/reserv/add(id=${plan.id})}">予約する</a>::<a th:href="@{/}">戻る</a></p>
+</body>
+</html>

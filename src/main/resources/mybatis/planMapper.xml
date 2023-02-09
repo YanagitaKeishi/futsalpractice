@@ -22,7 +22,7 @@
 		</association>
 		<association property="planType" column="plan_type_id"
 					javaType="com.example.app.domain.PlanType">
-			<id property="id" column="id"/>
+			<id property="id" column="plan_type_id"/>
 			<result property="name" column="plan_type_name"/>
 		</association>
 		<association property="courtType" column="court_type_id"
@@ -40,7 +40,7 @@
 	</resultMap>
 	
 	<select id="selectAll" resultMap="joinedResult">
-		SELECT *, plan_types.name AS plan_type_name,
+		SELECT *, plan_types.name AS plan_type_name, plan_types.id AS plan_type_id,
 		join_start_time.time AS start, join_end_time.time AS end, 
 		join_start_time.id AS join_start_time_id, join_end_time.id AS join_end_time_id,
 		courts.name AS court_type_name, courts.id AS court_id
@@ -57,6 +57,8 @@
 		SELECT *, plan_types.name AS plan_type_name,
 		 courts.name AS court_type_name,
 		 join_start_time.time AS start, join_end_time.time AS end,
+		 join_start_time.id AS join_start_time_id, join_end_time.id AS join_end_time_id,
+		 courts.name AS court_type_name, courts.id AS court_id,
 		 users.name AS user_name, users.member_id, users.tel,
 		 users.user_type FROM plans 
 		JOIN plan_types ON plans.plan_type_id = plan_types.id
@@ -65,6 +67,20 @@
 		JOIN  time_zones AS join_end_time ON plans.end_time_id = join_end_time.id 
 		LEFT JOIN users ON plans.id = users.plan_id 
 		WHERE plans.id = #{courtTypeId}
+	</select>
+	
+	<select id="selectPlanTypeId" parameterType="int" resultMap="joinedResult">
+		SELECT *, plan_types.name AS plan_type_name, plan_types.id AS plan_type_id,
+		join_start_time.time AS start, join_end_time.time AS end, 
+		join_start_time.id AS join_start_time_id, join_end_time.id AS join_end_time_id,
+		courts.name AS court_type_name, courts.id AS court_id
+		FROM  plans
+		JOIN plan_types ON plans.plan_type_id = plan_types.id
+		JOIN courts ON plans.court_type_id = courts.id
+		JOIN  time_zones AS join_start_time ON plans.start_time_id = join_start_time.id
+		JOIN  time_zones AS join_end_time ON plans.end_time_id = join_end_time.id 
+		WHERE plans.plan_type_id = #{id} AND plans.status = 'active'
+		ORDER BY event_at
 	</select>
 	
 	<select id="selectPlanDate" resultMap="joinedResult">

@@ -27,8 +27,8 @@ public class PlanServiceImpl implements PlanService {
 	}
 	
 	@Override
-	public List<Plan>getByPlanType(String planType) throws Exception {
-		return planDao.selectPlanTypeId(planType);
+	public List<Plan>getByPlanType(Integer id) throws Exception {
+		return planDao.selectPlanTypeId(id);
 	}
 
 	@Override
