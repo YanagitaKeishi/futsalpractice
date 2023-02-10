@@ -10,4 +10,6 @@ import com.example.app.domain.User;
 public interface UserDao {
 
 	List<User>selectAll() throws Exception;
+	
+	void insert(User user) throws Exception;
 }

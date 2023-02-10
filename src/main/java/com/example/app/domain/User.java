@@ -9,7 +9,7 @@ public class User {
 	private Integer id;
 	private String name;
 	private String memberId;
-	private Integer tel;
-	private String userType;
+	private String tel;
+	private UserType userType;
 	private Plan planId;
 }

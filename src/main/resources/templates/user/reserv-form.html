@@ -8,12 +8,18 @@
 </head>
 <body>
 <h1>予約する</h1>
-<form action="" method="post" th:object="${user}">
+<form th:action="@{/reserv/add(id=${plan.id})}" method="post" th:object="${user}">
 	<p>名前：<input type="text" th:field="*{name}"></p>
 	<p>会員ID：<input type="text" th:field="*{memberId}"></p>
+	<p>利用者区分：
+		<select th:field="*{userType.id}">
+			<option th:each="userType : ${userTypes}"
+				th:value="${userType.id}" th:text="${userType.name}"></option>
+		</select>
+	</p>
 	<p>電話番号：<input type="text" th:field="*{tel}"></p>
 	<input type="submit" value="予約">
 </form>
-<p><a th:href="@{/admin/home}">戻る</a></p>
+<p><a th:href="@{/}">戻る</a></p>
 </body>
 </html>

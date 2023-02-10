@@ -19,4 +19,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectAll();
 	}
 
+	@Override
+	public void addReserv(User user) throws Exception {
+		userDao.insert(user);;
+		
+	}
+
 }

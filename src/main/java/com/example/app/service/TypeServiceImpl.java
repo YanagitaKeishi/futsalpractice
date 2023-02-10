@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.example.app.dao.CourtTypeDao;
 import com.example.app.dao.PlanTypeDao;
 import com.example.app.dao.TimeZoneDao;
+import com.example.app.dao.UserTypeDao;
 import com.example.app.domain.CourtType;
 import com.example.app.domain.PlanType;
 import com.example.app.domain.TimeZone;
+import com.example.app.domain.UserType;
 
 @Service
 public class TypeServiceImpl implements TypeService {
@@ -23,6 +25,9 @@ public class TypeServiceImpl implements TypeService {
 	
 	@Autowired
 	PlanTypeDao planTypeDao;
+	
+	@Autowired
+	UserTypeDao userTypeDao;
 	
 	@Override
 	public List<CourtType> getCourtType() throws Exception {
@@ -42,6 +47,11 @@ public class TypeServiceImpl implements TypeService {
 	@Override
 	public List<PlanType> getPlanType() throws Exception {
 		return planTypeDao.selectAll();
+	}
+
+	@Override
+	public List<UserType> getUserType() throws Exception {
+		return userTypeDao.selectAll();
 	}
 
 }

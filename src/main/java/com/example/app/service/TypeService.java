@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.app.domain.CourtType;
 import com.example.app.domain.PlanType;
 import com.example.app.domain.TimeZone;
+import com.example.app.domain.UserType;
 
 public interface TypeService {
 
@@ -15,4 +16,6 @@ public interface TypeService {
 	List<Integer> getCourtId() throws Exception;
 	
 	List<PlanType> getPlanType() throws Exception;
+	
+	List<UserType> getUserType() throws Exception;
 }

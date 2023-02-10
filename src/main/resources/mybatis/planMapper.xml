@@ -35,7 +35,10 @@
 			<result property="name" column="user_name"/>
 			<result property="memberId" column="member_id"/>
 			<result property="tel" column="tel"/>
-			<result property="userType" column="user_type"/>
+			<association property="userType">
+				<id property="id" column="id"/>
+				<result property="name" column="user_type_name"/>
+			</association>
 		</collection>
 	</resultMap>
 	
@@ -60,12 +63,13 @@
 		 join_start_time.id AS join_start_time_id, join_end_time.id AS join_end_time_id,
 		 courts.name AS court_type_name, courts.id AS court_id,
 		 users.name AS user_name, users.member_id, users.tel,
-		 users.user_type FROM plans 
+		 user_types.name AS user_type_name FROM plans 
 		JOIN plan_types ON plans.plan_type_id = plan_types.id
 		JOIN courts ON plans.court_type_id = courts.id
 		JOIN  time_zones AS join_start_time ON plans.start_time_id = join_start_time.id
 		JOIN  time_zones AS join_end_time ON plans.end_time_id = join_end_time.id 
 		LEFT JOIN users ON plans.id = users.plan_id 
+		JOIN user_types ON users.user_type_id = user_types.id
 		WHERE plans.id = #{courtTypeId}
 	</select>
 	
