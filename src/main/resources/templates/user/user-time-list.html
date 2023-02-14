@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-	<table class="table table-bordered" border="1" cellpadding="5" cellspacing="0">
+	<table class="table table-bordered" border="1" cellpadding="0" cellspacing="0">
 	<tr>
 		<th>日付</th>
 		<th>コート</th>
@@ -20,7 +20,7 @@
 		<td th:each="time : ${timeZone}" colspan="" th:with="plans = ${planMap.get(court.name)}">
 			<th:block th:each="plan : ${plans}">
 				<p th:if="${plan.startTime.id == time.id || plan.endTime.id -1 == time.id}">
-					<a th:href="@{/admin/reserv/detail/{id}(id=${plan.id})}">[[${plan.title}]]<br>
+					<a th:href="@{/reserv/detail(id=${plan.id})}">[[${plan.title}]]<br>
 					[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</a>
 				</p>
 			</th:block>

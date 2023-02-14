@@ -2,15 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>○○フットサル</title>
+<title>○○フットサルコート</title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body>
-<h2>フットサルを予約する</h2>
-<p><a href="#">コートを借りる</a>/<a th:href="@{/reserv(id=1)}">個人で参加</a>/<a th:href="@{/reserv(id=3)}">大会に参加</a></p>
-<p><a href="#">カレンダーから予約する</a>カレンダーにプランを埋め込む</p>
-<p><a href="#">新規登録、ログイン</a></p>
-<p><a href="#">マイページ</a></p>
+	<div class="container">
+		<h1 class="user-top">東京フットサルコート</h1>
+		<div class="flex">
+			<a class="btn btn-outline-info" th:href="@{/calendar/user}">レンタルコート</a><a
+				class="btn btn-outline-danger" th:href="@{/reserv(id=1)}">個サルに参加</a><a
+				class="btn btn-outline-warning" th:href="@{/reserv(id=3)}">大会に参加</a>
+		</div>
+		<p>
+			<a href="#">ログイン</a>
+		</p>
+		<p>
+			<a href="#">新規登録</a>
+		</p>
+		<p>
+			<a href="#">マイページ</a>
+		</p>
+
+	</div>
 </body>
 </html>

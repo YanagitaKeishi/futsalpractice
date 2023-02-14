@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.app.domain.Plan;
 import com.example.app.domain.User;
-import com.example.app.domain.UserType;
 import com.example.app.service.PlanService;
 import com.example.app.service.TypeService;
 import com.example.app.service.UserService;
@@ -51,19 +50,16 @@ public class ReservController {
 					Model model) throws Exception {
 		model.addAttribute("user", new User());
 		model.addAttribute("userTypes", typeService.getUserType());
-		List<UserType> ut = typeService.getUserType();
-		System.out.println(ut);
 		model.addAttribute("plan", planService.getPlanById(id));
 		return "user/reserv-form";
 	}
 	
 	@PostMapping("/add")
 	public String postReserv(@ModelAttribute User user,
-					@RequestParam Plan id) throws Exception{
+					@RequestParam Integer id) throws Exception{
 		user.setPlanId(id);
 		userService.addReserv(user);
-		return "redirect:/";
-		//予約がうまくいかない（Plan型？？）
+		return "user/reservDone";
 		
 	}
 	

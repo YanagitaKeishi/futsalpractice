@@ -10,7 +10,7 @@
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO (users.name, users.member_id, users.tel, users.user_type_id,users.plan.id) 
-		VALUES (#{name}, #{memberId}, #{tel}, #{userType},#{planId})
+		INSERT INTO users (name, member_id, tel, user_type_id, plan_id) 
+		VALUES (#{name}, #{memberId}, #{tel}, #{userType.id},#{planId})
 	</insert>
 </mapper>

@@ -81,7 +81,6 @@ public class CalendarController {
 			List<Plan> planList = planService.getPlanDate(eventAt, id);
 			schedules.add(planList);
 		}
-		System.out.println(schedules);
 		
 		//schedulesの要素数（リスト内のリスト数）
 		int count = schedules.size();
@@ -98,24 +97,84 @@ public class CalendarController {
 				continue;
 			}
 		}
-		//ロジック変更？
-		//2/7日
-		System.out.println(planMap);
-		
 		
 		model.addAttribute("schedules", schedules);
 		//先生からの途中
 		//タイムリーフ
 		
 		model.addAttribute("planMap", planMap);
-		
 		model.addAttribute("eventDay", eventAt);
 		model.addAttribute("timeZone", typeService.getTimeZone());
 		model.addAttribute("courtTypes", typeService.getCourtType());
-		Integer courtId1 = 1;
-		Integer courtId2 = 2;
-		model.addAttribute("selectCourtA", planService.getPlanDate(eventAt,courtId1));
-		model.addAttribute("selectCourtB", planService.getPlanDate(eventAt,courtId2));
 		return "parts/time-list";
+	}
+	
+	@GetMapping("/user")
+	public String calenderUser(
+			@RequestParam (name="year",required=false)Integer year,
+			@RequestParam (name="month",required=false)Integer month,
+			Model model) {
+		MyCalendarLogic logic = new MyCalendarLogic();
+		MyCalendar mc = null;
+		if(year != null && month != null) {
+			if(month == 0) {
+				month=12;
+				year--;
+			}
+			if(month==13) {
+				month=1;
+				year++;
+			}
+		}
+		mc = logic.createMyCalendar(year,month);
+		model.addAttribute("mc", mc);
+		return "user/userCalendar";
+	}
+	
+	@GetMapping("/select/user")
+	public String timeScheduleUser(
+			@RequestParam String year,
+			@RequestParam String month,
+			@RequestParam String day,
+			Model model) throws Exception {
+		String select = year +"-"+ month +"-"+ day;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date eventAt = dateFormat.parse(select);
+		List<Integer>idList = typeService.getCourtId();
+		//courtId(整数)のリストを整数の配列に変換
+		int[] idArray = idList.stream().mapToInt(i->i).toArray();
+		//planのリスト格納する親リストを作成
+		List<List<Plan>>schedules = new ArrayList<>();
+		//コートId別でコートリストを格納
+		for(int id : idArray) {
+			List<Plan> planList = planService.getPlanDate(eventAt, id);
+			schedules.add(planList);
+		}
+		
+		//schedulesの要素数（リスト内のリスト数）
+		int count = schedules.size();
+		
+//		List<Map<String,Object>> scheduleList = new ArrayList<>();
+		Map<String,List<Plan>> planMap = new HashMap<>();
+		
+		for(int i = 0; i<count; i++) {
+			if(!schedules.get(i).isEmpty()){
+				String courtName = schedules.get(i).get(0).getCourtType().getName();
+				List<Plan> lp = schedules.get(i);
+				planMap.put(courtName, lp);
+			}else {
+				continue;
+			}
+		}
+		
+		model.addAttribute("schedules", schedules);
+		//先生からの途中
+		//タイムリーフ
+		
+		model.addAttribute("planMap", planMap);
+		model.addAttribute("eventDay", eventAt);
+		model.addAttribute("timeZone", typeService.getTimeZone());
+		model.addAttribute("courtTypes", typeService.getCourtType());
+		return "user/user-time-list";
 	}
 }

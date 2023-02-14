@@ -10,13 +10,11 @@
 		<result property="maximum" column="maximum"/>
 		<result property="emptyMaximum" column="empty_maximum"/>
 		<result property="price" column="price"/>
-		<association property="startTime" column="join_start_time_id"
-					javaType="com.example.app.domain.TimeZone">
+		<association property="startTime" javaType="com.example.app.domain.TimeZone">
 			<id property="id" column="join_start_time_id"/>
 			<result property="time" column="start"/>
 		</association>
-		<association property="endTime" column="join_end_time_id"
-					javaType="com.example.app.domain.TimeZone">
+		<association property="endTime" javaType="com.example.app.domain.TimeZone">
 			<id property="id" column="join_end_time_id"/>
 			<result property="time" column="end"/>
 		</association>
@@ -36,7 +34,7 @@
 			<result property="memberId" column="member_id"/>
 			<result property="tel" column="tel"/>
 			<association property="userType">
-				<id property="id" column="id"/>
+				<id property="id" column="user_type_id"/>
 				<result property="name" column="user_type_name"/>
 			</association>
 		</collection>
@@ -69,8 +67,8 @@
 		JOIN  time_zones AS join_start_time ON plans.start_time_id = join_start_time.id
 		JOIN  time_zones AS join_end_time ON plans.end_time_id = join_end_time.id 
 		LEFT JOIN users ON plans.id = users.plan_id 
-		JOIN user_types ON users.user_type_id = user_types.id
-		WHERE plans.id = #{courtTypeId}
+		LEFT JOIN user_types ON users.user_type_id = user_types.id
+		WHERE plans.id = #{id}
 	</select>
 	
 	<select id="selectPlanTypeId" parameterType="int" resultMap="joinedResult">

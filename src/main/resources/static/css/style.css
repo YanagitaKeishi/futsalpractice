@@ -1,15 +1,14 @@
 @charset "UTF-8";
 
-body {
-	padding-bottom: 1rem;
-	font-family: "メイリオ", sans-serif;
+.flex{
+	display: flex;
+	justify-content: space-around;
 }
 
-.error {
-	color: #f00;
+.user-top{
+	margin:0 auto;
+	
 }
-
-.news_target span {
-	display: inline-block;
-	margin-right: 1em;
+a{
+	text-decoration: none;
 }

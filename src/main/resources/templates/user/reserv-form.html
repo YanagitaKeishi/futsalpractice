@@ -1,25 +1,59 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>スケジュール</title>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+<meta charset="UTF-8">
+<title>スケジュール</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>予約する</h1>
-<form th:action="@{/reserv/add(id=${plan.id})}" method="post" th:object="${user}">
-	<p>名前：<input type="text" th:field="*{name}"></p>
-	<p>会員ID：<input type="text" th:field="*{memberId}"></p>
-	<p>利用者区分：
-		<select th:field="*{userType.id}">
-			<option th:each="userType : ${userTypes}"
-				th:value="${userType.id}" th:text="${userType.name}"></option>
-		</select>
-	</p>
-	<p>電話番号：<input type="text" th:field="*{tel}"></p>
-	<input type="submit" value="予約">
-</form>
-<p><a th:href="@{/}">戻る</a></p>
+	<h1>情報入力</h1>
+	<form th:action="@{/reserv/add(id=${plan.id})}" method="post"
+		th:object="${user}">
+		<section>
+		<p>お客様情報</p>
+			<table border="1"  cellpadding="10" cellspacing="5" rowspacing="10">
+				<tr>
+					<th>名前：</th>
+					<td><input type="text" th:field="*{name}"></td>
+				</tr>
+				<tr>
+					<th>会員ID：</th>
+					<td><input type="text" th:field="*{memberId}"></td>
+				</tr>
+				<tr>
+					<th>利用者区分：</th>
+					<td><select th:field="*{userType.id}">
+							<option th:each="userType : ${userTypes}"
+								th:value="${userType.id}" th:text="${userType.name}"></option>
+					</select></td>
+				</tr>
+				<tr>
+					<th>電話番号：</th>
+					<td><input type="text" th:field="*{tel}"></td>
+				</tr>
+			</table>
+		</section>
+		<section>
+		<p>予約内容</p>
+			<table border="1" cellpadding="10" >
+				<tr>
+					<th>予約内容</th>
+					<td>[[${plan.title}]]
+				</tr>
+				<tr>
+					<th>開催日時</th>
+					<td>[[${#dates.format(plan.eventAt, 'yyyy年MM月dd日')}]]
+						[[${#dates.format(plan.startTime.time,
+						'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
+				</tr>
+				<tr>
+					<th>金額</th>
+					<td>[[${plan.price}]]円</td>
+				</tr>
+			</table>
+			<input type="submit" value="予約情報の確認"><a th:href="@{/}">戻る</a>
+		</section>
+	</form>
 </body>
 </html>
