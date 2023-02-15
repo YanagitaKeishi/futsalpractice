@@ -1,45 +1,64 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>スケジュール</title>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-	<link rel="stylesheet" th:href="@{/css/style.css}">
+<meta charset="UTF-8">
+<title>スケジュール</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>イベント作成</h1>
-<form action="" method="post" th:object="${plan}">
-	<p>日付：<input type="date" th:field="*{eventAt}"></p>
-	<p>タイトル：<input type="text" th:field="*{title}"></p>
-	<p>プランタイプ：
-		<select th:field="*{planType.id}">
-			<option th:each="planType : ${planTypes}" th:value="${planType.id}"
-						th:text="${planType.name}"></option>
-		</select>
+	<div class="container">
+		<div class="row">
+			<div class="col-6 plan-form">
+				<h1>イベント作成</h1>
+				<form action="" method="post" th:object="${plan}">
+					<p>
+						日付：<input class="form-control" type="date" th:field="*{eventAt}">
+					<p>
+						タイトル：<input class="form-control" type="text" th:field="*{title}">
+					</p>
+					<p>
+						プランタイプ： <select class="form-select" th:field="*{planType.id}">
+							<option th:each="planType : ${planTypes}"
+								th:value="${planType.id}" th:text="${planType.name}"></option>
+						</select>
+					</p>
+
+					開始時間: <select class="form-select col-3" th:field="*{startTime.id}">
+						<option th:each="timeZone : ${timeZones}"
+							th:value="${timeZone.id}"
+							th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
+					</select> 
+					終了時間: <select class="form-select col-3" th:field="*{endTime.id}">
+						<option th:each="timeZone : ${timeZones}"
+							th:value="${timeZone.id}"
+							th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
+					</select>
+
+					<p>
+						開催コート: <select class="form-select" th:field="*{courtType.id}">
+							<option th:each="courtType : ${courtTypes}"
+								th:value="${courtType.id}" th:text="${courtType.name}"></option>
+						</select>
+					</p>
+					<p>
+						募集枠: <input class="form-control" type="number"
+							th:field="*{maximum}" min="0">
+					</p>
+					<p>
+						残り枠: <input class="form-control" type="number"
+							th:field="*{emptyMaximum}" min="0">
+					</p>
+					<p>
+						金額: <input class="form-control" type="number" th:field="*{price}">
+					</p>
+					<input type="submit" value="保存">
+				</form>
+			</div>
+		</div>
+	</div>
+	<p>
+		<a th:href="@{/admin/home}">戻る</a>
 	</p>
-	<p>開始時間:
-		<select th:field="*{startTime.id}">
-			<option th:each="timeZone : ${timeZones}" th:value="${timeZone.id}"
-						th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
-		</select>
-	</p>
-	<p>終了時間:
-		<select th:field="*{endTime.id}">
-			<option th:each="timeZone : ${timeZones}" th:value="${timeZone.id}"
-						th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
-		</select>
-	</p>
-	<p>開催コート:
-		<select th:field="*{courtType.id}">
-			<option th:each="courtType : ${courtTypes}" th:value="${courtType.id}"
-						th:text="${courtType.name}"></option>
-		</select>
-	</p>
-	<p>募集枠<input type="number" th:field="*{maximum}" min="0"></p>
-	<p>残り枠<input type="number" th:field="*{emptyMaximum}" min="0"></p>
-	<p>金額<input type="number" th:field="*{price}"></p>
-	<input type="submit" value="保存">
-</form>
-<p><a th:href="@{/admin/home}">戻る</a></p>
 </body>
 </html>

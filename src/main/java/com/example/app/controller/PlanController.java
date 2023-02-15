@@ -77,8 +77,6 @@ public class PlanController {
 	public String getEdit(@RequestParam Integer id
 						,Model model) throws Exception{
 		model.addAttribute("plan", service.getPlanById(id));
-		Plan plan = service.getPlanById(id);
-		System.out.println(plan);
 		model.addAttribute("planTypes", typeService.getPlanType());
 		model.addAttribute("courtTypes", typeService.getCourtType());
 		model.addAttribute("timeZones", typeService.getTimeZone());
@@ -87,14 +85,7 @@ public class PlanController {
 	
 	@PostMapping("/edit")
 	public String postEdit(@RequestParam Integer id,
-				@ModelAttribute Plan plan, Model model) throws Exception{
-//		if(errors.hasErrors()) {
-//			model.addAttribute("planTypes", typeService.getPlanType());
-//			model.addAttribute("courtTypes", typeService.getCourtType());
-//			model.addAttribute("timeZones", typeService.getTimeZone());
-//			return "admin/edit-plan";
-//		}
-		
+				@ModelAttribute Plan plan, Model model) throws Exception{		
 		plan.setId(id);
 		service.editPlan(plan);
 		return "redirect:/plan/list?status=edit";

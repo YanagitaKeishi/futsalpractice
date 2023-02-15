@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<script src="js/jquery-3.6.1.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
 	<title>時間別</title>
 </head>
 <body>
@@ -14,7 +16,7 @@
 		<th>コート</th>
 		<th th:each="time : ${timeZone}">[[${#dates.format(time.time, "HH:mm")}]]</th>
 	</tr>
-	<tr th:each="court : ${courtTypes}">
+	<tr id="t" th:each="court : ${courtTypes}">
 		<th th:if="${courtStat.first}" th:rowspan="${courtStat.size}">[[${#dates.format(eventDay, "M月d日")}]]</th>
 		<th>[[${court.name}]]</th>
 		<td th:each="time : ${timeZone}" colspan="" th:with="plans = ${planMap.get(court.name)}">
@@ -28,6 +30,6 @@
 	</tr>
 	</table>
 </div>
-	<p><a th:href="@{/calendar}">戻る</a></p>
+	<p><a th:href="@{/}">戻る</a></p>
 </body>
 </html>
