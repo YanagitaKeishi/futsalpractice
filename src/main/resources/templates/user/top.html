@@ -2,28 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>○○フットサルコート</title>
+<title>フットサルコート</title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body>
-	<div class="container">
-		<h1 class="user-top">東京フットサルコート</h1>
+	<div class="container top">
+		<h1 class="user-top">フットサルコート</h1>
 		<div class="flex">
-			<a class="btn btn-outline-info" th:href="@{/calendar/user}">レンタルコート</a><a
-				class="btn btn-outline-danger" th:href="@{/reserv(id=1)}">個サルに参加</a><a
-				class="btn btn-outline-warning" th:href="@{/reserv(id=3)}">大会に参加</a>
+			<a class="btn btn-outline-info" th:href="@{/calendar/user}">レンタルコート</a>
+			<a class="btn btn-outline-danger" th:href="@{/reserv(id=1)}">個サルに参加</a>
+			<a class="btn btn-outline-warning" th:href="@{/reserv(id=3)}">大会に参加</a>
 		</div>
-		<p>
-			<a href="#">ログイン</a>
-		</p>
-		<p>
-			<a href="#">新規登録</a>
-		</p>
-		<p>
-			<a href="#">マイページ</a>
-		</p>
-
+		<a href="#">ログイン</a> <a href="#">新規登録</a> <a href="#">マイページ</a>
+		<div class="top-back">
+		</div>
+		<table class="table my-4">
+			<tr>
+				<th>住所</th>
+				<td>〒○○〇ｰ○○○○<br>東京都新宿区○○○○</td>
+			</tr>
+			<tr>
+				<th>アクセス</th>
+				<td>JR新宿駅 ○○改札から【約徒歩10分】</td>
+			</tr>
+			<tr>
+				<th>営業時間</th>
+				<td>10：00～22:00</td>
+			</tr>
+			<tr>
+				<th>お問い合わせ</th>
+				<td>090-1234-5678</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

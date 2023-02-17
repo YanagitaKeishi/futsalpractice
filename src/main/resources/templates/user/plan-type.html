@@ -7,13 +7,14 @@
 <link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body>
-<h2>[[${name}]]に参加する</h2>
+<div class="container">
+	<h2>[[${name}]]に参加する</h2>
 <table class="table">
         <tr>
           <th>開催日</th>
           <th>タイトル</th>
           <th>カテゴリ</th>
-          <th>募集人数</th>
+          <th>募集枠</th>
           <th>金額</th>
         </tr>
         <tr th:each="plan : ${plans}">
@@ -21,10 +22,11 @@
           	<br>[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</td>
           <td><a th:href="@{/reserv/detail(id=${plan.id})}">[[${plan.title}]]</a></td>
           <td>[[${plan.planType.name}]]</td>
-          <td>[[${plan.maximum}]]人</td>
+          <td>[[${plan.maximum}]]</td>
           <td>[[${plan.price}]]円</td>
         </tr>
 </table>
 <a th:href="@{/}">戻る</a>
+</div>
 </body>
 </html>

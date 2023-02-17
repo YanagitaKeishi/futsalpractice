@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>myCalendar</title>
+	<title>カレンダー</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -27,7 +27,7 @@
 				<td th:each="day : ${calendar}"><a th:href="@{/calendar/select(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a></td>
 			</tr>
 	</table>
+	<a th:href="@{/admin/home}">戻る</a>
 </div>
-	<p><a th:href="@{/admin/home}">戻る</a></p>
 </body>
 </html>

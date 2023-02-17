@@ -7,7 +7,8 @@
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>予約詳細</h1>
+<div class="container">
+	<h1>予約詳細</h1>
 	<table class="table ">
         <tr>
           <th>開催日時</th>
@@ -30,6 +31,7 @@
         </tr>
       </table>
       <th:block th:unless="${plan.users.empty} ">
+		  <h6>予約者一覧</h6>
 		 <table class="table">
 	        <tr>
 	          <th>名前(チーム名)</th>
@@ -47,5 +49,6 @@
 	      </th:block>
       <h1 th:if="${plan.users.empty}">まだ予約はありません</h1>
       <p><a th:href="@{/admin/home}">戻る</a></p>
+</div>
 </body>
 </html>

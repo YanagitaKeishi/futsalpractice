@@ -17,17 +17,17 @@
 	<tr th:each="court : ${courtTypes}">
 		<th th:if="${courtStat.first}" th:rowspan="${courtStat.size}">[[${#dates.format(eventDay, "M月d日")}]]</th>
 		<th>[[${court.name}]]</th>
-		<td th:each="time : ${timeZone}" colspan="" th:with="plans = ${planMap.get(court.name)}">
+		<td th:each="time : ${timeZone}" th:with="plans = ${planMap.get(court.name)}">
 			<th:block th:each="plan : ${plans}">
 				<p th:if="${plan.startTime.id == time.id || plan.endTime.id -1 == time.id}">
-					<a th:href="@{/admin/reserv/detail/{id}(id=${plan.id})}">[[${plan.title}]]<br>
-					[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</a>
+					<a th:href="@{/admin/reserv/detail/{id}(id=${plan.id})}">[[${plan.title}]]</a>
+					<td></td>
 				</p>
 			</th:block>
 		</td>
 	</tr>
 	</table>
+	<a th:href="@{/calendar}">戻る</a>
 </div>
-	<p><a th:href="@{/calendar}">戻る</a></p>
 </body>
 </html>

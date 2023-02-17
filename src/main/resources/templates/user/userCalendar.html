@@ -27,7 +27,7 @@
 				<td th:each="day : ${calendar}"><a th:href="@{/calendar/select/user(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a></td>
 			</tr>
 	</table>
+	<a th:href="@{/}">戻る</a>
 </div>
-	<p><a th:href="@{/}">戻る</a></p>
 </body>
 </html>

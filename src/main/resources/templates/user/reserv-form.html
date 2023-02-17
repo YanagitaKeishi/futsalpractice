@@ -7,39 +7,46 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-	<h1>情報入力</h1>
+	<div class="container">
+	<h1>予約情報入力</h1>
+		<div class="reserv-form">
 	<form th:action="@{/reserv/add(id=${plan.id})}" method="post"
 		th:object="${user}">
-		<section>
+		<div class="flex">
+			<section>
 		<p>お客様情報</p>
-			<table border="1"  cellpadding="10" cellspacing="5" rowspacing="10">
+			<table class="table">
 				<tr>
-					<th>名前：</th>
-					<td><input type="text" th:field="*{name}"></td>
+					<th>名前</th>
+					<td><input class="form-control" type="text" th:field="*{name}"></td>
 				</tr>
 				<tr>
-					<th>会員ID：</th>
-					<td><input type="text" th:field="*{memberId}"></td>
+					<th>会員ID</th>
+					<td><input class="form-control" type="text" th:field="*{memberId}" placeholder="会員の方"></td>
 				</tr>
 				<tr>
-					<th>利用者区分：</th>
-					<td><select th:field="*{userType.id}">
+					<th>利用者区分</th>
+					<td><select class="form-select" th:field="*{userType.id}">
 							<option th:each="userType : ${userTypes}"
 								th:value="${userType.id}" th:text="${userType.name}"></option>
 					</select></td>
 				</tr>
 				<tr>
-					<th>電話番号：</th>
-					<td><input type="text" th:field="*{tel}"></td>
+					<th>電話番号</th>
+					<td><input class="form-control" type="text" th:field="*{tel}"></td>
 				</tr>
 			</table>
 		</section>
 		<section>
 		<p>予約内容</p>
-			<table border="1" cellpadding="10" >
+			<table class="table" >
 				<tr>
 					<th>予約内容</th>
 					<td>[[${plan.title}]]
+				</tr>
+				<tr>
+					<th>カテゴリ</th>
+					<td>[[${plan.planType.name}]]
 				</tr>
 				<tr>
 					<th>開催日時</th>
@@ -52,8 +59,13 @@
 					<td>[[${plan.price}]]円</td>
 				</tr>
 			</table>
-			<input type="submit" value="予約情報の確認"><a th:href="@{/}">戻る</a>
 		</section>
+		</div>
+		<div class="reserv-submit">
+			<input class="btn btn-primary w-50 mx-5" type="submit" value="予約"><a class="text-end" th:href="@{/}">キャンセル</a>
+		</div>
 	</form>
+		</div>
+	</div>
 </body>
 </html>

@@ -7,7 +7,8 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-	<h1>イベント一覧</h1>
+	<div class="container">
+		<h1>イベント一覧</h1>
 	<p>
 		<a href="">個人</a>/<a href="">大会</a>/<a href="">レンタルコート</a>
 	</p>
@@ -15,7 +16,6 @@
 		<a class="btn btn-primary" th:href="@{/plan/add}">新規作成</a>
 	</p>
 	<h2 th:if="${message != null}" class="alert alert-info">[[${message}]]</h2>
-	<div class="container">
 		<table class="table">
 			<thead>
 				<tr>
@@ -39,14 +39,12 @@
 				</td>
 				<td>[[${plan.price}]]</td>
 				<td><a th:href="@{/plan/edit(id=${plan.id})}"><input
-						type="submit" value="編集"></a> <a
-					th:href="@{/plan/delete(id=${plan.id})}"><input type="submit"
+					class="btn btn-warning"	type="submit" value="編集"></a> <a
+					th:href="@{/plan/delete(id=${plan.id})}"><input class="btn btn-danger" type="submit"
 						value="削除"></a></td>
 			</tr>
 		</table>
-	</div>
-	<p>
 		<a th:href="@{/admin/home}">戻る</a>
-	</p>
+	</div>
 </body>
 </html>

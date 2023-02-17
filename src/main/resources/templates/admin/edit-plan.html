@@ -8,59 +8,56 @@
 </head>
 <body>
 	<div class="container">
-		<h1>イベント編集</h1>
 		<div class="row">
-			<div class="col-6">
+			<div class="col-6 plan-form">
+			<h1>イベント編集</h1>
 				<form action="" method="post" th:object="${plan}">
 					<p>
-						日付：<input type="date" th:field="*{eventAt}">
+						日付：<input class="form-control" type="date" th:field="*{eventAt}">
 					</p>
 					<p>
-						タイトル：<input type="text" th:field="*{title}">
+						タイトル：<input class="form-control" type="text" th:field="*{title}">
 					</p>
 					<p>
-						プランタイプ： <select th:field="*{planType.id}">
+						プランタイプ： <select class="form-select" th:field="*{planType.id}">
 							<option th:each="planType : ${planTypes}"
 								th:value="${planType.id}" th:text="${planType.name}"></option>
 						</select>
 					</p>
 					<p>
-						開始時間: <select th:field="*{startTime.id}">
+						開始時間: <select class="form-select" th:field="*{startTime.id}">
 							<option th:each="timeZone : ${timeZones}"
 								th:value="${timeZone.id}"
 								th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
 						</select>
 					</p>
 					<p>
-						終了時間: <select th:field="*{endTime.id}">
+						終了時間: <select class="form-select" th:field="*{endTime.id}">
 							<option th:each="timeZone : ${timeZones}"
 								th:value="${timeZone.id}"
 								th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
 						</select>
 					</p>
 					<p>
-						開催コート: <select th:field="*{courtType.id}">
+						開催コート: <select class="form-select" th:field="*{courtType.id}">
 							<option th:each="courtType : ${courtTypes}"
 								th:value="${courtType.id}" th:text="${courtType.name}"
 								th:selected="*{courtType}"></option>
 						</select>
 					</p>
 					<p>
-						募集枠<input type="number" th:field="*{maximum}" min="0">
+						募集枠<input class="form-control" type="number" th:field="*{maximum}" min="0">
 					</p>
 					<p>
-						残り枠<input type="number" th:field="*{emptyMaximum}" min="0">
+						残り枠<input class="form-control" type="number" th:field="*{emptyMaximum}" min="0">
 					</p>
 					<p>
-						金額<input type="number" th:field="*{price}">
+						金額<input class="form-control" type="number" th:field="*{price}">
 					</p>
-					<input type="submit">
+					<input class="btn btn-primary" type="submit" value="保存"><a class="mx-5" th:href="@{/admin/home}">戻る</a>
 				</form>
 			</div>
 		</div>
 	</div>
-	<p>
-		<a th:href="@{/admin/home}">戻る</a>
-	</p>
 </body>
 </html>
