@@ -46,7 +46,6 @@ public class CalendarController {
 			@RequestParam (name="month",required=false)Integer month,
 			Model model) {
 		MyCalendarLogic logic = new MyCalendarLogic();
-		MyCalendar mc = null;
 		if(year != null && month != null) {
 			if(month == 0) {
 				month=12;
@@ -57,7 +56,7 @@ public class CalendarController {
 				year++;
 			}
 		}
-		mc = logic.createMyCalendar(year,month);
+		MyCalendar mc = logic.createMyCalendar(year,month);
 		model.addAttribute("mc", mc);
 		return "parts/myCalendar";
 	}
@@ -71,36 +70,8 @@ public class CalendarController {
 		String select = year +"-"+ month +"-"+ day;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
-		List<Integer>idList = typeService.getCourtId();
-		//courtId(整数)のリストを整数の配列に変換
-		int[] idArray = idList.stream().mapToInt(i->i).toArray();
-		//planのリスト格納する親リストを作成
-		List<List<Plan>>schedules = new ArrayList<>();
-		//コートId別でコートリストを格納
-		for(int id : idArray) {
-			List<Plan> planList = planService.getPlanDate(eventAt, id);
-			schedules.add(planList);
-		}
 		
-		//schedulesの要素数（リスト内のリスト数）
-		int count = schedules.size();
-		
-//		List<Map<String,Object>> scheduleList = new ArrayList<>();
-		Map<String,List<Plan>> planMap = new HashMap<>();
-		
-		for(int i = 0; i<count; i++) {
-			if(!schedules.get(i).isEmpty()){
-				String courtName = schedules.get(i).get(0).getCourtType().getName();
-				List<Plan> lp = schedules.get(i);
-				planMap.put(courtName, lp);
-			}else {
-				continue;
-			}
-		}
-		
-		model.addAttribute("schedules", schedules);
-		//先生からの途中
-		//タイムリーフ
+		Map<String,List<Plan>> planMap = createPlanMap(select,eventAt);
 		
 		model.addAttribute("planMap", planMap);
 		model.addAttribute("eventDay", eventAt);
@@ -115,7 +86,6 @@ public class CalendarController {
 			@RequestParam (name="month",required=false)Integer month,
 			Model model) {
 		MyCalendarLogic logic = new MyCalendarLogic();
-		MyCalendar mc = null;
 		if(year != null && month != null) {
 			if(month == 0) {
 				month=12;
@@ -126,7 +96,7 @@ public class CalendarController {
 				year++;
 			}
 		}
-		mc = logic.createMyCalendar(year,month);
+		MyCalendar mc = logic.createMyCalendar(year,month);
 		model.addAttribute("mc", mc);
 		return "user/userCalendar";
 	}
@@ -140,10 +110,23 @@ public class CalendarController {
 		String select = year +"-"+ month +"-"+ day;
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
+		
+		Map<String,List<Plan>> planMap = createPlanMap(select,eventAt);
+		
+		model.addAttribute("planMap", planMap);
+		model.addAttribute("eventDay", eventAt);
+		model.addAttribute("timeZone", typeService.getTimeZone());
+		model.addAttribute("courtTypes", typeService.getCourtType());
+		return "user/user-time-list";
+	}
+	
+	private Map<String,List<Plan>> createPlanMap(String select, Date eventAt) throws Exception{
+		//select = リクエストパラメータの日付
+		//idListはコート識別IDのリスト
 		List<Integer>idList = typeService.getCourtId();
 		//courtId(整数)のリストを整数の配列に変換
 		int[] idArray = idList.stream().mapToInt(i->i).toArray();
-		//planのリスト格納する親リストを作成
+		//plan(コート別)のリスト格納する親リストを作成
 		List<List<Plan>>schedules = new ArrayList<>();
 		//コートId別でコートリストを格納
 		for(int id : idArray) {
@@ -154,7 +137,6 @@ public class CalendarController {
 		//schedulesの要素数（リスト内のリスト数）
 		int count = schedules.size();
 		
-//		List<Map<String,Object>> scheduleList = new ArrayList<>();
 		Map<String,List<Plan>> planMap = new HashMap<>();
 		
 		for(int i = 0; i<count; i++) {
@@ -166,15 +148,8 @@ public class CalendarController {
 				continue;
 			}
 		}
-		
-		model.addAttribute("schedules", schedules);
-		//先生からの途中
-		//タイムリーフ
-		
-		model.addAttribute("planMap", planMap);
-		model.addAttribute("eventDay", eventAt);
-		model.addAttribute("timeZone", typeService.getTimeZone());
-		model.addAttribute("courtTypes", typeService.getCourtType());
-		return "user/user-time-list";
+		//startTime_id,endTime_id-startTime_idの２つの値があればタイムスケジュールできそ
+		System.out.println(planMap);
+		return planMap;
 	}
 }

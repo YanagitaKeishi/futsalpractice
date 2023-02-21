@@ -21,7 +21,6 @@
 			<th:block th:each="plan : ${plans}">
 				<p th:if="${plan.startTime.id == time.id || plan.endTime.id -1 == time.id}">
 					<a th:href="@{/admin/reserv/detail/{id}(id=${plan.id})}">[[${plan.title}]]</a>
-					<td></td>
 				</p>
 			</th:block>
 		</td>

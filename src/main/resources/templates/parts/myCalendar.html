@@ -5,15 +5,17 @@
 	<title>カレンダー</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<script th:src="@{/js/jquery-3.6.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
 <body>
 <div class="container">
-	<h1>[[${mc.year}]]年[[${mc.month}]]月</h1>
-	<p class="flex">
+	<h1 class="text-center">[[${mc.year}]]年[[${mc.month}]]月</h1>
+	<p class="flex calendar">
 		<a th:href="@{/calendar(year=${mc.year}, month=${mc.month}-1)}">前月</a>
 		<a th:href="@{/calendar(year=${mc.year}, month=${mc.month}+1)}">翌月</a>
 	</p>
-	<table class="table table-bordered" border="1" cellpadding="10" cellspacing="0">
+	<table class="table table-bordered calendar" border="1" cellpadding="10" cellspacing="0">
 		<tr>
 				<th>日</th>
 				<th>月</th>
@@ -24,10 +26,28 @@
 				<th>土</th>
 			</tr>
 			<tr th:each="calendar : ${mc.data}">
-				<td th:each="day : ${calendar}"><a th:href="@{/calendar/select(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a></td>
+				<td th:each="day : ${calendar}"><a id="day" th:href="@{/calendar/select(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a></td>
 			</tr>
 	</table>
 	<a th:href="@{/admin/home}">戻る</a>
+	<div id="result"></div>
 </div>
+<script>
+	$(document).ready(function(){
+		$(#day).click(function(){
+			$.ajax({
+				url:$('#day').attr('th:href'),
+				type:'GET',
+				dataType:'JSON'
+			})
+			.done(function(res){
+				console.log(res);
+			})
+			.fail(function() {
+				console.log('接続失敗')
+			});
+		})
+	})
+</script>
 </body>
 </html>

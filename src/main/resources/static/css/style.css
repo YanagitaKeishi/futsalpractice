@@ -17,10 +17,6 @@ a{
 	margin:0 auto;
 }
 
-.time-table{
-	margin-top:50px;
-}
-
 /*利用者トップページ*/
 .top-back{
 	width:auto;
@@ -42,3 +38,23 @@ a{
 	margin:0 auto;
 	width:400px;
 }
+/*カレンダー*/
+.calendar table{
+	table-layout: fixed;
+	width:300px;
+}
+.calendar th{
+	background-color:#ddd;
+	color:#000;
+}
+.calendar a {
+	color:#000;
+}
+
+/*タイムテーブル*/
+.time-table{
+	margin-top:50px;
+	table-layout:fixed;
+	
+}
+

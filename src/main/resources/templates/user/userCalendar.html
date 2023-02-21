@@ -10,8 +10,8 @@
 <div class="container">
 	<h1>[[${mc.year}]]年[[${mc.month}]]月</h1>
 	<p class="flex">
-		<a th:href="@{/calendar(year=${mc.year}, month=${mc.month}-1)}">前月</a>
-		<a th:href="@{/calendar(year=${mc.year}, month=${mc.month}+1)}">翌月</a>
+		<a th:href="@{/calendar/user(year=${mc.year}, month=${mc.month}-1)}">前月</a>
+		<a th:href="@{/calendar/user(year=${mc.year}, month=${mc.month}+1)}">翌月</a>
 	</p>
 	<table class="table table-bordered" border="1" cellpadding="10" cellspacing="0">
 		<tr>
