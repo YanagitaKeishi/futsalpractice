@@ -45,13 +45,6 @@ public class PlanController {
 		return "admin/plan-list";
 	}
 	
-//	@GetMapping("/{planId}")
-//	public String type(@PathVariable String planType,
-//					Model model) throws Exception{
-//		model.addAttribute("planTypes", service.getByPlanType(planType));
-//		return "user/plan-type";
-//	}
-	
 	@GetMapping("/add")
 	public String getAdd(Model model) throws Exception {
 		model.addAttribute("plan", new Plan());

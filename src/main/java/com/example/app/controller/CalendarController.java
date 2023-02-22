@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.app.domain.CourtType;
 import com.example.app.domain.MyCalendar;
 import com.example.app.domain.MyCalendarLogic;
 import com.example.app.domain.Plan;
@@ -133,7 +134,6 @@ public class CalendarController {
 			List<Plan> planList = planService.getPlanDate(eventAt, id);
 			schedules.add(planList);
 		}
-		
 		//schedulesの要素数（リスト内のリスト数）
 		int count = schedules.size();
 		
@@ -148,8 +148,28 @@ public class CalendarController {
 				continue;
 			}
 		}
+		//タイムスケジュールの編集
+		List<CourtType> ci = typeService.getCourtType();
+		Plan [][] event = new Plan [count][];
+		for(int i= 0; i<count; i++) {
+			for(int j = 0; j<=12; j++) {
+				List<Plan> ps = planMap.get(ci.get(i).getName());
+				for(Plan p : ps) {
+					if(j == p.getStartTime().getId()) {
+						event[i][j] = p;
+					}else {
+						event[i][j] = null;
+					}
+				}
+					
+				
+				 
+			}
+			System.out.println(event);
+		}
+		
+		
 		//startTime_id,endTime_id-startTime_idの２つの値があればタイムスケジュールできそ
-		System.out.println(planMap);
 		return planMap;
 	}
 }

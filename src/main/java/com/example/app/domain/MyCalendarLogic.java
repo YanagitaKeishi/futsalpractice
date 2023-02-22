@@ -34,7 +34,7 @@ public class MyCalendarLogic {
 		calendar.set(Calendar.DATE, daysCount);
 		//最後の週の空白数
 		int after = 7-calendar.get(Calendar.DAY_OF_WEEK);
-		//全ての要素数（1日より前の空白、その月の日数、最週の空白数）
+		//全ての要素数（1日より前の空白、その月の日数、最後の週の空白数）
 		int total = before+daysCount+after;
 		//全ての要素数を7個の配列（曜日）の列数
 		int rows = total/7;
