@@ -21,6 +21,7 @@ import com.example.app.domain.CourtType;
 import com.example.app.domain.MyCalendar;
 import com.example.app.domain.MyCalendarLogic;
 import com.example.app.domain.Plan;
+import com.example.app.domain.TimeSchedule;
 import com.example.app.service.PlanService;
 import com.example.app.service.TypeService;
 
@@ -72,9 +73,9 @@ public class CalendarController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
 		
-		Map<String,List<Plan>> planMap = createPlanMap(select,eventAt);
+		List<TimeSchedule> timeSchedules = createTimeSchedule(select,eventAt);
 		
-		model.addAttribute("planMap", planMap);
+		model.addAttribute("timeSchedules", timeSchedules);
 		model.addAttribute("eventDay", eventAt);
 		model.addAttribute("timeZone", typeService.getTimeZone());
 		model.addAttribute("courtTypes", typeService.getCourtType());
@@ -112,16 +113,17 @@ public class CalendarController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date eventAt = dateFormat.parse(select);
 		
-		Map<String,List<Plan>> planMap = createPlanMap(select,eventAt);
+		List<TimeSchedule> timeSchedules = createTimeSchedule(select,eventAt);
 		
-		model.addAttribute("planMap", planMap);
+		model.addAttribute("timeSchedules", timeSchedules);
 		model.addAttribute("eventDay", eventAt);
+		model.addAttribute("strDay", select);
 		model.addAttribute("timeZone", typeService.getTimeZone());
 		model.addAttribute("courtTypes", typeService.getCourtType());
 		return "user/user-time-list";
 	}
 	
-	private Map<String,List<Plan>> createPlanMap(String select, Date eventAt) throws Exception{
+	private List<TimeSchedule> createTimeSchedule(String select, Date eventAt) throws Exception{
 		//select = リクエストパラメータの日付
 		//idListはコート識別IDのリスト
 		List<Integer>idList = typeService.getCourtId();
@@ -150,26 +152,29 @@ public class CalendarController {
 		}
 		//タイムスケジュールの編集
 		List<CourtType> ci = typeService.getCourtType();
-		Plan [][] event = new Plan [count][];
+		//10:00~22:00のタイムスケジュール
+		List<TimeSchedule> TimeSchedules = new ArrayList<>();
+		
 		for(int i= 0; i<count; i++) {
+			TimeSchedule ts = new TimeSchedule();
+			ts.setCourtType(ci.get(i).getName());
+			Plan [] event = new Plan[14];//[0]~[12]
 			for(int j = 0; j<=12; j++) {
 				List<Plan> ps = planMap.get(ci.get(i).getName());
-				for(Plan p : ps) {
-					if(j == p.getStartTime().getId()) {
-						event[i][j] = p;
-					}else {
-						event[i][j] = null;
+				if(ps != null) {
+					for(Plan p :ps) {
+						//配列のインデックス番号とイベントの開始時間のIDが同じなら格納
+						if(j == p.getStartTime().getId() || j == p.getEndTime().getId()-1){
+						//System.out.println(p);
+						event[j] = p;
+						}//そうでないならnull
 					}
 				}
-					
-				
-				 
 			}
-			System.out.println(event);
+			ts.setEvent(event);
+			TimeSchedules.add(ts);
 		}
-		
-		
-		//startTime_id,endTime_id-startTime_idの２つの値があればタイムスケジュールできそ
-		return planMap;
+		return TimeSchedules;
 	}
+	
 }

@@ -22,7 +22,7 @@
 		<td th:each="time : ${timeZone}">
 			<th:block th:each="ts : ${timeSchedules}" th:if="${court.name == ts.courtType}">
 				<p th:unless="${ts.event[time.id] == null}">
-					<a th:href="@{/admin/reserv/detail/{id}(id=${ts.event[time.id].id})}">[[${ts.event[time.id].title}]]</a>
+					<a th:href="@{/reserv/detail(id=${ts.event[time.id].id})}">[[${ts.event[time.id].title}]]</a>
 				</p>
 				<p th:if="${ts.event[time.id] == null}"><a th:href="@{/reserv/add}">〇</a></p>
 			</th:block>
@@ -33,25 +33,31 @@
 </div>
 
 <script>
-/*$(function(){
+$(function(){
 	  $('.time-table td').each(function(){
 	    let self=$(this);
-	    let txt=$(this).text();
+	    let txt=$('.time-table td a').text();
 	    let c=0;
 	    while($(this).nextAll().eq(c).is(function(){return $(this).text()==txt})){
-	      c++;
-	      self.attr('data-colspan',c+1);
+	    	if(txt != 〇){
+	    		c++;
+			      self.attr('data-colspan',c+1);
+		      console.log(txt);
+	    	} 
+	    	
 	    };
 	    c=0;
 	    while($(this).prevAll().eq(c).is(function(){return $(this).text()==txt})){
-	      c++;
-	      self.attr('data-del',1);
+	     
+	    	  c++;
+		      self.attr('data-del',1);
+	      
 	    };
 	    console.log(txt);
 	  });
-	  $('[data-del]').remove();
-	  $('[data-colspan]').attr('colspan',function(){return $(this).data('colspan');}).removeAttr('data-colspan');
-	});*/
+		  $('[data-del]').remove();
+		  $('[data-colspan]').attr('colspan',function(){return $(this).data('colspan');}).removeAttr('data-colspan');
+	});
 </script>
 </body>
 </html>

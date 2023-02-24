@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class TimeSchedule {
 
-	private Integer planId;
-	private Integer startId;
-	private String [][] event;
+	private String courtType;
+	private Plan [] event;
 }

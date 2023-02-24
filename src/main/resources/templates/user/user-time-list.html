@@ -10,7 +10,6 @@
 </head>
 <body>
 <div class="container">
-<h1>[[${eventAt}]]</h1>
 	<table class="table table-bordered" border="1" cellpadding="0" cellspacing="0">
 	<tr>
 		<th>日付</th>
@@ -20,12 +19,15 @@
 	<tr id="t" th:each="court : ${courtTypes}">
 		<th th:if="${courtStat.first}" th:rowspan="${courtStat.size}">[[${#dates.format(eventDay, "M月d日")}]]</th>
 		<th>[[${court.name}]]</th>
-		<td th:each="time : ${timeZone}" colspan="" th:with="plans = ${planMap.get(court.name)}">
-			<th:block th:each="plan : ${plans}">
-				<p th:if="${plan.startTime.id == time.id || plan.endTime.id -1 == time.id}">
-					<a th:href="@{/reserv/detail(id=${plan.id})}">[[${plan.title}]]<br>
-					[[${#dates.format(plan.startTime.time, 'HH:mm')}]]~[[${#dates.format(plan.endTime.time, 'HH:mm')}]]</a>
+		<td th:each="time : ${timeZone}">
+			<th:block th:each="ts : ${timeSchedules}" th:if="${court.name == ts.courtType}">
+				<p th:unless="${ts.event[time.id] == null}">
+					<a th:unless="${ts.event[time.id].planType.id == 2}"th:href="@{/reserv/detail(id=${ts.event[time.id].id})}">[[${ts.event[time.id].title}]]</a>
+					<th:block th:if="${ts.event[time.id].planType.id == 2}">
+						[[${ts.event[time.id].title}]]
+					</th:block>
 				</p>
+				<p th:if="${ts.event[time.id] == null}"><a th:href="@{/reserv/court(courtType=${court.id})}">〇</a></p>
 			</th:block>
 		</td>
 	</tr>
