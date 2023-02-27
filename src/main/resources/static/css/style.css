@@ -45,9 +45,14 @@ a{
 }
 .calendar th{
 	background-color:#ddd;
-	color:#000;
 }
-.calendar a {
+.saturDay{
+	color:#0000EE;	
+}
+.sunDay{
+	color:red;
+}
+.day{
 	color:#000;
 }
 

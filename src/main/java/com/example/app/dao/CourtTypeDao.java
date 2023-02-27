@@ -13,4 +13,6 @@ public interface CourtTypeDao {
 	
 	List<Integer> selectIdAll()throws Exception;
 	
+	CourtType getCourtType(Integer id) throws Exception;
+	
 }

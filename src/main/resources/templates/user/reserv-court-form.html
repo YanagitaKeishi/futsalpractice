@@ -8,7 +8,48 @@
 </head>
 <body>
 	<div class="container">
-	<h1>予約情報入力</h1>
+		<div class="row">
+			<div class="col-6 plan-form">
+				<h1>コートを借りる</h1>
+				<form action="" method="post" th:object="${plan}">
+					<p>
+						日付<input class="form-control" type="text" th:value="${#dates.format(eventDay, 'yyyy年MM月dd日')}">
+					<p>
+						チーム名<input class="form-control" type="text" th:field="*{title}">
+					</p>
+					<p>
+						プランタイプ<input class="form-control" type="text"  th:value="${planType.name}">
+					</p>
+
+					開始時間<select class="form-select col-3" th:field="*{startTime.id}">
+						<option th:each="timeZone : ${timeZones}"
+							th:value="${timeZone.id}"
+							th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
+					</select> 
+					終了時間<select class="form-select col-3" th:field="*{endTime.id}">
+						<option th:each="timeZone : ${timeZones}"
+							th:value="${timeZone.id}"
+							th:text="${#dates.format(timeZone.time, 'HH:mm')}"></option>
+					</select>
+
+					<p>
+						開催コート<input class="form-control" type="text" th:value="${courtType.name}">
+					</p>
+					<p>
+						募集枠<input class="form-control" type="number"
+							th:field="*{maximum}" min="0">
+					</p>
+					<p>
+						残り枠<input class="form-control" type="number"
+							th:field="*{emptyMaximum}" min="0">
+					</p>
+					<p>
+						金額<input class="form-control" type="number" th:field="*{price}">
+					</p>
+						<input class="btn btn-primary" type="submit" value="保存"><a class="mx-5" th:href="@{/}">戻る</a>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

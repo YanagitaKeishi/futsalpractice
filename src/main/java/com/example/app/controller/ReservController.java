@@ -78,12 +78,15 @@ public class ReservController {
 	
 	@GetMapping("/court")
 	public String getCourt(@RequestParam Integer courtType, 
+					String strDay,
 					Model model) throws Exception{
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Date eventAt = dateFormat.parse(strDay);
-//		System.out.println(eventAt);
-		Integer c = courtType;
-		System.out.println(c);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date eventAt = dateFormat.parse(strDay);
+		model.addAttribute("plan", new Plan());
+		model.addAttribute("eventDay", eventAt);
+		model.addAttribute("planType",typeService.addCourt(2) );
+		model.addAttribute("courtType", typeService.useCourt(courtType));
+		model.addAttribute("timeZones", typeService.getTimeZone());
 		return "user/reserv-court-form";
 	}
 	

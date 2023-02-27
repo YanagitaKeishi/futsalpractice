@@ -8,23 +8,27 @@
 </head>
 <body>
 <div class="container">
-	<h1>[[${mc.year}]]年[[${mc.month}]]月</h1>
+	<h1 class="text-center">[[${mc.year}]]年[[${mc.month}]]月</h1>
 	<p class="flex">
-		<a th:href="@{/calendar/user(year=${mc.year}, month=${mc.month}-1)}">前月</a>
-		<a th:href="@{/calendar/user(year=${mc.year}, month=${mc.month}+1)}">翌月</a>
+		<a class="day" th:href="@{/calendar/user(year=${mc.year}, month=${mc.month}-1)}">前月</a>
+		<a class="day" th:href="@{/calendar/user(year=${mc.year}, month=${mc.month}+1)}">翌月</a>
 	</p>
-	<table class="table table-bordered" border="1" cellpadding="10" cellspacing="0">
+	<table class="table table-bordered calendar" border="1" cellpadding="10" cellspacing="0">
 		<tr>
-				<th>日</th>
+				<th class="sunDay">日</th>
 				<th>月</th>
 				<th>火</th>
 				<th>水</th>
 				<th>木</th>
 				<th>金</th>
-				<th>土</th>
-			</tr>
+				<th class="saturDay">土</th>
+		</tr>
 			<tr th:each="calendar : ${mc.data}">
-				<td th:each="day : ${calendar}"><a th:href="@{/calendar/select/user(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a></td>
+				<td th:each="day : ${calendar}">
+					<a th:unless="${dayStat.first || dayStat.last}" class="day" th:href="@{/calendar/select/user(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a>
+					<a th:if="${dayStat.first}"class="sunDay" th:href="@{/calendar/select/user(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a>
+					<a th:if="${dayStat.last}" class="saturDay"  th:href="@{/calendar/select/user(year=${mc.year},month=${mc.month},day=${day})}">[[${day}]]</a>	
+				</td>
 			</tr>
 	</table>
 	<a th:href="@{/}">戻る</a>

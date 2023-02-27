@@ -27,7 +27,7 @@
 						[[${ts.event[time.id].title}]]
 					</th:block>
 				</p>
-				<p th:if="${ts.event[time.id] == null}"><a th:href="@{/reserv/court(courtType=${court.id})}">〇</a></p>
+				<p th:if="${ts.event[time.id] == null}"><a th:href="@{/reserv/court(courtType=${court.id}, strDay=${strDay})}">〇</a></p>
 			</th:block>
 		</td>
 	</tr>

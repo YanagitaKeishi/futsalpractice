@@ -18,4 +18,8 @@ public interface TypeService {
 	List<PlanType> getPlanType() throws Exception;
 	
 	List<UserType> getUserType() throws Exception;
+	
+	PlanType addCourt(Integer id) throws Exception;
+	
+	CourtType useCourt(Integer id) throws Exception;
 }

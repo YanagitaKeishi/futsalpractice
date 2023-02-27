@@ -6,4 +6,8 @@
 	<select id="selectAll" resultType="com.example.app.domain.PlanType">
 		SELECT * FROM plan_types order by id
 	</select>
+	
+	<select id="addCourt" parameterType="int" resultType="com.example.app.domain.PlanType">
+		SELECT * FROM plan_types WHERE plan_types.id = #{id}
+	</select>
 </mapper>

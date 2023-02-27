@@ -10,4 +10,8 @@
 	<select id="selectIdAll" resultType="Integer">
 		SELECT courts.id FROM courts
 	</select>
+	
+	<select id="getCourtType" resultType="com.example.app.domain.CourtType">
+		SELECT * FROM courts WHERE courts.id = #{id}
+	</select>
 </mapper>

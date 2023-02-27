@@ -54,4 +54,14 @@ public class TypeServiceImpl implements TypeService {
 		return userTypeDao.selectAll();
 	}
 
+	@Override
+	public PlanType addCourt(Integer id) throws Exception {
+		return planTypeDao.addCourt(id);
+	}
+
+	@Override
+	public CourtType useCourt(Integer id) throws Exception {
+		return courtTypeDao.getCourtType(id);
+	}
+
 }

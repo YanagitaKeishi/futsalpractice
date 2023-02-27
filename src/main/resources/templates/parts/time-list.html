@@ -24,7 +24,7 @@
 				<p th:unless="${ts.event[time.id] == null}">
 					<a th:href="@{/admin/reserv/detail/{id}(id=${ts.event[time.id].id})}">[[${ts.event[time.id].title}]]</a>
 				</p>
-				<p th:if="${ts.event[time.id] == null}"><a th:href="@{/reserv/add}">〇</a></p>
+				<p th:if="${ts.event[time.id] == null}"><a href="#">〇</a></p>
 			</th:block>
 		</td>
 	</tr>

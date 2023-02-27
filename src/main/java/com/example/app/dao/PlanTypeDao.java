@@ -10,4 +10,6 @@ import com.example.app.domain.PlanType;
 public interface PlanTypeDao {
 
 	List<PlanType> selectAll() throws Exception;
+	
+	PlanType addCourt(Integer id) throws Exception;
 }
